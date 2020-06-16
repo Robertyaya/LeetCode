@@ -17,7 +17,7 @@ using namespace std;
 /**
  * Time: O(N) (We need to transverse whole tree in worst case)
  * Space: O(N) (We need to build the set to find the correspond value)
- * 解題流程: 利用DFS去recursive tranverse every node, 在過程中把node加入unorder_set中並且去確認target-current_node->value有沒有在set中
+ * 解題流程: 利用DFS去recursive tranverse every node, 在過程中把node加入unorder_set中並且去確認diff = target - (current_node->value)有沒有在set中
  * DFS (inorder tranverse, preorder tranverse, postorder tranverse), in here we use the concept of pre-order tranverse
  */
 class Solution
