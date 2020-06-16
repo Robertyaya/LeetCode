@@ -22,6 +22,7 @@ int maxArea(vector<int> &height)
 
         // Update the area
         max_area = std::max(max_area, (r - l) * h);
+
         // Update l, until we find the higher height
         while (height[l] <= h && l < r)
             l++;
