@@ -1,8 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Manacher's Algorithm
-string longestPalindrome_(string s)
+/**
+ * 
+ * Manacher's Algorithm [http://dino4cat.blogspot.com/2019/06/manacher.html]
+ * Time: O(N), Space: O(1)
+ * 解題流程: 作法跟expand from center很像 (while迴圈部份 radius就是expand from center概念)
+ * 之所以可以從O(N^2)降到O(N)的原因在於利用回文的特性
+ * 不用每次都從頭expand from center去計算最大的回文substring
+ * 可以根據回文左邊的數值來取得一個基礎值, 接著往右移在繼續update
+ * 
+ */
+
+string longestPalindrome(string s)
 {
     string t = "#";
     for (int i = 0; i < s.size(); ++i)
@@ -12,20 +22,55 @@ string longestPalindrome_(string s)
     }
 
     int Max = 1, Max_id = 0;
-    vector<int> radius(s.size(), 0);
+    vector<int> radius(t.size(), 0);
+    radius.push_back(1);
 
-    for (int i = 0; i < s.size(); i++)
+    for (int i = 1; i < t.size(); i++)
     {
+        // 判斷這個點有沒有在最長回文裡面
+        // Max_id + radius[Max_id]: 中心+半徑
         if (i < Max_id + radius[Max_id])
         {
-            radius[i] = radius[Max_id * 2 - i];
+            // 右邊的長度會(大於或等於左邊的長度)
+            // radius[Max_id*2-i]此為在Max回文中和右邊對稱位置的radius
+            // 然而左邊那個對稱位置不一定是完全在此Max回文中, 可能會更大超過邊界
+            // Max_id+radkus[Max_id]-i指的就是左邊指到邊界的那個index的radius數值
+            // 關鍵: 如果左邊越界了， Radius[i']會大於 i 到右邊界，而使用 min 就只會取到 i 到右邊界的距離 (此部份利用回文特性來思考)
+            radius[i] = min(radius[Max_id * 2 - i], Max_id + radius[Max_id] - i);
         }
         else
         {
             radius[i] = 1;
         }
+
+        while (i - radius[i] >= 0 && i + radius[i] < t.size() && t.at(i - radius[i]) == t.at(i + radius[i]))
+            radius[i]++;
+        if (radius[i] > Max)
+        {
+            Max = radius[i];
+            Max_id = i;
+        }
     }
-    return t;
+
+    // Find right index
+    int max_radius = Max;
+    int i = 1;
+    int right_index = Max_id;
+    int left_index = Max_id;
+    while (i < max_radius)
+    {
+        right_index++;
+        left_index--;
+        i++;
+    }
+    string answer = "";
+
+    for (int i = left_index; i <= right_index; i++)
+    {
+        if (t[i] != '#')
+            answer += t[i];
+    }
+    return answer;
 }
 
 /**
