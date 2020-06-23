@@ -1,50 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<string> letterCombinations(string digits)
+/**
+ * 
+ * Time: O(3^N) (N is the size of input string), Space: O(N) (Recursive stack, 每次只會有跟input string相同大小的stack)
+ * 解題流程: 要找出所有種可能, 基本上這種題型都是用Recursive去找
+ * 首先需建立一個字典dic, 用來查找number所對應到的string
+ * string out: 其中一個return 字串
+ * vector<string> res: 所有return 字串
+ * level: 用來記錄現在進入第幾個號碼了, 當level等於號碼的siZE時, 代表所有號碼都已經打完, 因此將現有的out加到res中
+ * 根據號碼找出相對應的string
+ * 接著tranverse那個string, 類似於tree的概念, 往下搜, 每個node會有自己的children
+ * 並將所有可能塞到res中
+ * 
+ */
+void letterCombinationDFS(string digits, vector<string> &dict, int level,
+                          string out, vector<string> &res)
 {
-  // Ascii a~z; 97~122
-  vector<vector<int>> number_vec;
-  number_vec.reserve(digits.size());
-  for (int i = 0; i < digits.size(); i++)
+  if (level == digits.size())
   {
-    vector<int> temp_vec;
-    int number = digits[i] - '0';
-    if (number == 1)
-      continue;
-    else
-    {
-      int m = number - 2;
-      if (number <= 7)
-      {
-        temp_vec.push_back(m * 3 + 97);
-        temp_vec.push_back(m * 3 + 98);
-        temp_vec.push_back(m * 3 + 99);
-        if (number == 7)
-          temp_vec.push_back(m * 3 + 99 + 1);
-      }
-      else
-      {
-        temp_vec.push_back(m * 3 + 97 + 1);
-        temp_vec.push_back(m * 3 + 98 + 1);
-        temp_vec.push_back(m * 3 + 99 + 1);
-        if (number == 9)
-          temp_vec.push_back(m * 3 + 99 + 1 + 1);
-      }
-    }
-    number_vec.push_back(temp_vec);
+    res.push_back(out);
+    return;
   }
 
-  vector<string> string_vec;
-  for (int i = 0; i < number_vec.size(); i++)
+  string str = dict[digits[level] - '0'];
+  for (int i = 0; i < str.size(); i++)
   {
-    for (int j = 0; j < number_vec[i].size(); j++)
-    {
-    }
+    letterCombinationDFS(digits, dict, level + 1, out + str[i], res);
   }
 }
-int main()
+vector<string> letterCombinations(string digits)
 {
-  char c = '4';
-  int a = c - '0';
-  cout << a << endl;
+  // Boundary case
+  if (digits.empty())
+    return {};
+
+  vector<string> res;
+  vector<string> dict{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+  letterCombinationDFS(digits, dict, 0, "", res);
+  return res;
 }
