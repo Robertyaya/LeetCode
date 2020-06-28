@@ -10,20 +10,22 @@ vector<int> inorderTraversal(TreeNode *root)
   TreeNode *node = root;
   stack<TreeNode *> stack;
 
-  // 先抵達left child最底層, 每一步都將node塞到stack中
-  // 接著一步一步將stack的node pop出來
   while (node || !stack.empty())
   {
-    while (node)
+    if (node)
     {
       stack.push(node);
       node = node->left;
     }
-    TreeNode *todo = stack.top();
-    output.push_back(todo->val);
-    stack.pop();
-    node = todo->right;
+    else
+    {
+      TreeNode *todo = stack.top();
+      stack.pop();
+      output.push_back(todo->val);
+      node = todo->right;
+    }
   }
+  return output;
 }
 /** Recursive version
  * Time: O(N), Space: O(N) (stack = height, average tree height = logN, worst case O(N))
