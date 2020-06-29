@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+<<<<<<< HEAD
 /** 
  * DP version
  * Time: O(N^2), Space: O(N)
@@ -73,12 +74,29 @@ int FindBST(int nums, unordered_map<int, int> &map)
   // Insert into map
   map[nums] = value;
   return value;
+=======
+int FindBST(int start, int end)
+{
+  if (start >= end)
+    return 1;
+
+  int ans = 0;
+  // 不同的tree node當root
+  for (int i = start; i <= end; i++)
+  {
+    int leftTreeNum = FindBST(start, i - 1);
+    int rightTreeNum = FindBST(i + 1, end);
+    ans += leftTreeNum * rightTreeNum;
+  }
+  return ans;
+>>>>>>> b1dab266c0bb8898ba03f85e2bc4cf0b659c24b0
 }
 
 int numTrees(int n)
 {
   if (n == 0)
     return 0;
+<<<<<<< HEAD
 
   unordered_map<int, int> map;
   return FindBST(n, map);
@@ -114,5 +132,7 @@ int numTrees(int n)
   if (n == 0)
     return 0;
 
+=======
+>>>>>>> b1dab266c0bb8898ba03f85e2bc4cf0b659c24b0
   return FindBST(1, n);
 }
