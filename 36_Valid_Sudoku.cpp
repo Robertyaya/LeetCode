@@ -1,5 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+/**
+ * Time: O(N), Space: O(N)
+ * 解題流程: 自行定義string格式放到set中, 程式碼簡單, 但因為string比較長, 因此花費時間較多
+ * char 如果要和string相加, 只能利用operator+=.
+ * 直接相加不行, 或是利用stringstream, 將char pass to stringstream, then pass stringstream to string 
+ */
 bool isValidSudoku(vector<vector<char>> &board)
 {
   unordered_set<string> set;
@@ -7,15 +13,17 @@ bool isValidSudoku(vector<vector<char>> &board)
   {
     for (int j = 0; j < board[i].size(); j++)
     {
+      // char to string
       char value = board[i][j];
+      std::stringstream ss;
+      ss << value;
+      string value_s;
+      ss >> s;
       if (value != '.')
       {
         // Row
         string row_key = "";
-        row_key += (value + "in row" + to_string(i));
-        // row_key.push_back(value);
-        // row_key += "in row";
-        // row_key.push_back(i + '0');
+        row_key += (value_s + "in row" + to_string(i));
         if (set.count(row_key))
           return false;
         else
@@ -23,10 +31,7 @@ bool isValidSudoku(vector<vector<char>> &board)
 
         // Col
         string col_key = "";
-        col_key += (value + "in col" + to_string(i));
-        // col_key.push_back(value);
-        // col_key += "in col";
-        // col_key.push_back(j + '0');
+        col_key += (value_s + "in col" + to_string(i));
         if (set.count(col_key))
           return false;
         else
@@ -34,12 +39,7 @@ bool isValidSudoku(vector<vector<char>> &board)
 
         // Block
         string block_key = "";
-        block_key += (value + "in block" + to_string(i / 3) + "-" + to_string(j / 3));
-        // block_key.push_back(value);
-        // block_key += "in block";
-        // block_key.push_back(i / 3 + '0');
-        // block_key += "-";
-        // block_key.push_back(j / 3 + '0');
+        block_key += (value_s + "in block" + to_string(i / 3) + "-" + to_string(j / 3));
         if (set.count(block_key))
           return false;
         else
