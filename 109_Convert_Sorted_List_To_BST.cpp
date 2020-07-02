@@ -17,8 +17,6 @@ using namespace std;
 
 TreeNode *BuildBST(ListNode *head, ListNode *tail, int length)
 {
-<<<<<<< HEAD
-=======
   // Base case []
   if (length == 0)
     return nullptr;
@@ -46,13 +44,10 @@ TreeNode *BuildBST(ListNode *head, ListNode *tail, int length)
   node->left = BuildBST(head, previous_mid_node, left_length - 1);
   node->right = BuildBST(mid_node->next, tail, length - left_length);
   return node;
->>>>>>> a74a151bbc83d03c76f11e89e8d712ca8a3fa9f3
 }
 
 TreeNode *sortedListToBST(ListNode *head)
 {
-<<<<<<< HEAD
-=======
   // Edge case
   if (head == nullptr)
     return nullptr;
@@ -67,5 +62,4 @@ TreeNode *sortedListToBST(ListNode *head)
   }
 
   return BuildBST(head, tail, length);
->>>>>>> a74a151bbc83d03c76f11e89e8d712ca8a3fa9f3
 }
