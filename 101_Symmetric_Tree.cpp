@@ -1,6 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 /**
+ * Recursive version
+ * Time: O(N), Space: O(H) (Tree height)
+ * 解題流程: 判斷symmetric的方式在於如果去比較兩個node數值相等
+ * current_left_node的左邊child 要和 current_right_node的右邊child相比
+ * ex: 數字代表index
+ *       1
+ *    1     2    level2
+ *  1   2 3   4  level3
+ * 1 2 3 45 6 7 8  level4
+ * 
+ * 在level3中, 1 and 4 compare, 2 and 3 compare
+ * 在level4中, [1,8], [2,7], [3,6], [4,5] compare   
+ */
+bool isSymmetricRecursive(TreeNode *left, TreeNode *right)
+{
+  // 兩者皆為nullptr
+  if (!left && !right)
+    return true;
+
+  // 兩者node不相等, 可能為各一個為nullptr或是value不相等, 這樣都是not symmetric
+  if (!left && right || left && !right || left->val != right->val)
+    return false;
+
+  // left左邊的node要跟right右邊的node相比, 而left右邊的node要跟right左邊的node相比
+  return isSymmetricRecursive(left->left, right->right) && isSymmetricRecursive(left->right, right->left);
+}
+bool isSymmetric(TreeNode *root)
+{
+  if (!root)
+    return true;
+  return isSymmetricRecursive(root->left, root->right);
+}
+/**
  * Iterative version
  * Time: O(N), Space: O(N)
  * 解題流程: 分成兩個sub-tree去做level-order traversal
