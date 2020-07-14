@@ -73,12 +73,12 @@ void Merge(InputArray, int front, int mid, int end)
 }
 void MergeSort(InputArray, int front, int end)
 {
-  if(front < end)
-  {
-    int mid = (front+end)/2
-    MergeSort(InputArray, front, mid)
-    MergeSort(InputArray, mid+1, front)
-    Merge(array, front, mid, end)
-  }
+  if(front >= end)
+    return;
+
+  int mid = front + (end-front)/2;
+  MergeSort(InputArray, front, mid)
+  MergeSort(InputArray, mid+1, front)
+  Merge(array, front, mid, end)
 }
 ````

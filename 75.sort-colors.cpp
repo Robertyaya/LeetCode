@@ -28,32 +28,33 @@ public:
             }
         }
     }
-    /**
+};
+// @lc code=end
+
+/**
 * Two pass algorithm
 * Time: O(N), Space: O(N)
 * 解題流程: 此處要sorting in in-place, 利用count-sorting, 先traverse一遍, 過程中紀錄各別元素出現的個數, 再traverse第二遍, 有了數字以及出現的個數, 直接修改input nums
 */
-    void sortColors(vector<int> &nums)
-    {
-        vector<int> count;
-        count.resize(3);
-        // O(N)
-        for (auto v : nums)
-            count[v]++;
+void sortColors(vector<int> &nums)
+{
+    vector<int> count;
+    count.resize(3);
+    // O(N)
+    for (auto v : nums)
+        count[v]++;
 
-        int index = 0;
-        int value = 0;
-        for (auto v : count)
+    int index = 0;
+    int value = 0;
+    for (auto v : count)
+    {
+        int num = v;
+        while (num > 0)
         {
-            int num = v;
-            while (num > 0)
-            {
-                nums[index] = value;
-                num--;
-                index++;
-            }
-            value++;
+            nums[index] = value;
+            num--;
+            index++;
         }
+        value++;
     }
-};
-// @lc code=end
+}

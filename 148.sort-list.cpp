@@ -15,11 +15,24 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class Solution
+{
 public:
-    ListNode* sortList(ListNode* head) {
-        
+    /**
+ * Merge sort
+ */
+    ListNode *
+        ListNode *
+        sortList(ListNode *head)
+    {
+        ListNode *fast = head;
+        ListNode *slow = head; // slow will point to the mid node
+        while (fast->next->next)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return merge(head, slow);
     }
 };
 // @lc code=end
-
