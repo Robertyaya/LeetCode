@@ -5,11 +5,15 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution
+{
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        
+    bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+    {
+        // Build the graph
+        for (auto v : prerequisites)
+        {
+        }
     }
 };
 // @lc code=end
-

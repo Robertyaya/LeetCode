@@ -84,74 +84,126 @@ void MergeSort(InputArray, int front, int end)
 }
 ````
 ## Graph
+可參考這系列Graph文章
+[Graph intro](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+
 ### BFS
+做完一次BFS可產生start_node到任何一個node ``shortest path``
+並利用Predecessor可以back tracking回去找出這條路徑確切的軌跡
 ````c++
 class Graph
 {
   int V // total node
-  vector<vector<int>> adj // adjacency lists
+  vector<list<int>> adj // adjacency lists
 }
 void BFS(int start_node)
 {
-  // Record which node has already visited. Initial as false, and the size the No. of node
+  // 紀錄某一點是否已經被拜訪過
   vector<bool> visited(V, false);
+  // 紀錄某一點與起點之間"最短距離", 因此初始為最大值
+  vector<int> distance(V,INT_MAX); 
+  // 紀錄某一點是由哪個點找到的, 以便可以回朔路徑
+  vector<int> predecessor(V, -1);
 
   // 因為要做BFS, 因此需要queue來輔助我們traverse
   queue<int> que;
 
-  // Mark the current node as visited and enqueue it
-  visited[start_node] = true;
-  que.push(start_node);
-  while(!que.empty())
+  int i = start_node;
+  // 最外層for迴圈目的是如果此graph不只一個connected component, 也就是只做一次BFS沒辦法traverse到所有的node, 則將i set to j, 當成不同的start_node來做的概念
+  for(int j = 0; j < V; j++)
   {
-    int current_node = que.front();
-    que.pop();
-
-    // Print value
-    cout << current_node->val << endl;
-    
-    // Traverse current node's adjacent list
-    for(int i=0; i<adj[current_node].size(); i++)
+    if(!visited[i])
     {
-      int adj_node = adj[current_node][i];
-      // 尚未visit過的node將其加入queue中
-      if(!visited[adj_node])
+      visited[i] = true; // 標記現在start_node已經visited過
+      distance[i] = 0; // 和起點距離為0
+      predecessor[i] = 1;  // start node沒有predecessor, 因此設為-1
+      q.push(i);
+      while(!que.empty())
       {
-        // 將其標記為visit過
-        visited[adj_node] = true;
-        que.push(adj_node);
+        int current_node = que.front();
+        que.pop();
+
+        // Print value
+        cout << current_node->val << endl;
+        
+        // Traverse current node's adjacent list
+        for(list<int>::iterator iter = adj[current_node].begin(); 
+              iter!=adj[current_node].end(); iter++)
+        {
+          // 尚未visit過的node將其加入queue中
+          if(!visited[*iter])
+          {
+            // 將其標記為visit過
+            visited[*iter] = true;
+            // 距離為前一點距離+1
+            distance[*iter] = distance[current_node] + 1;
+            // 更新被找到vertex的predecessor
+            predecessor[*iter] = current_node;
+
+            que.push(*iter);
+          }
+        } 
       }
-    } 
+      // 設成其他的start_node
+      i = j;
+    }
   }
 }
 ````
 ### DFS
+一樣會求得start_node到任何一個node的一條path, 但是這條path不一定是shortest path
+DFS相關應用參考上面連接
+利用discover and finish 
+ex: 
+1. 判斷是否有環
+2. Topological Sort
+3. Find Strongly Connected Component(SCC) in directed graph
+
 ````c++
 class Graph
 {
   int V // total node
-  vector<vector<int>> adj // adjacency lists
+  vector<list<int>> adj // adjacency lists
 }
 void DFS(int start_node)
 {
-  // Record which node has already visited. Initial as false, and the size the No. of node
-  vector<bool> visited(V, false);
+  vector<bool> visited(V, false); // 紀錄那個node是否有被visit過
+  vector<int> discover(V, 0); // 每一個node會去紀錄其dicover time 以及 finish time
+  vector<int> finish(V,0); 
+  vector<int> predecessor(V,-1); // 這個和BFS一樣, 紀錄上一個node
+  int time = 0;
 
-  // Call the recursive helper function to print DFS traversal
-  DFSUtil(start_node, visited)
+  int i = start_node
+  // 避免graph中不只一個connected_component, 這樣的話只做一次DFS沒辦法traverse到所有的node
+  for(int j=0; j < V; j++)
+  {
+    if(!visited[i])
+    {
+      DFSUtil(start_node, visited, discover, finish, predecessor, time); 
+    }
+    // 避免做完一次DFS沒有traverse完所有的node
+    i = j;
+  }
 }
 
-void DFSUtil(int node, vector<bool>& visited)
+void DFSUtil(int current_node, vector<bool>& visited, vector<int>& discover, vector<int>& finish,
+              vector<int>& predecessor, int time)
 {
-  visited[node] = true
   // Print value
-  cout << node << endl;
+  cout << current_node << endl;
 
-  for(int i=0; i<adj[current_node].size(); i++)
+  discover[current_node] = ++time; // Update discover time
+  visited[current_node] = true; // 標記此node已經拜訪過
+
+  // Traverse current_node's adjacent node
+  for(list<int>::iterator iter = adj[current_node].begin();iter!=adj[current_node].end();iter++)
   {
-    int adj_node = adj[current_node][i];
-    if(!visited[adj_node])
-      DFSUtil(adj_node, visited)
+    if(!visited[*iter])
+    {
+      predecessor[*iter] = current_node;
+      DFSUtil(*iter*, visited, discover, finish, predecessor, time); 
+    }
   }
+  finish[current_node] = ++time; // Update finish time
 }
 ````
