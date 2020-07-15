@@ -1,3 +1,4 @@
+## Sorting
 ### Quick Sort
 利用Divide-and-Conquer
 Time: O(NlogN)
@@ -80,5 +81,77 @@ void MergeSort(InputArray, int front, int end)
   MergeSort(InputArray, front, mid)
   MergeSort(InputArray, mid+1, front)
   Merge(array, front, mid, end)
+}
+````
+## Graph
+### BFS
+````c++
+class Graph
+{
+  int V // total node
+  vector<vector<int>> adj // adjacency lists
+}
+void BFS(int start_node)
+{
+  // Record which node has already visited. Initial as false, and the size the No. of node
+  vector<bool> visited(V, false);
+
+  // 因為要做BFS, 因此需要queue來輔助我們traverse
+  queue<int> que;
+
+  // Mark the current node as visited and enqueue it
+  visited[start_node] = true;
+  que.push(start_node);
+  while(!que.empty())
+  {
+    int current_node = que.front();
+    que.pop();
+
+    // Print value
+    cout << current_node->val << endl;
+    
+    // Traverse current node's adjacent list
+    for(int i=0; i<adj[current_node].size(); i++)
+    {
+      int adj_node = adj[current_node][i];
+      // 尚未visit過的node將其加入queue中
+      if(!visited[adj_node])
+      {
+        // 將其標記為visit過
+        visited[adj_node] = true;
+        que.push(adj_node);
+      }
+    } 
+  }
+}
+````
+### DFS
+````c++
+class Graph
+{
+  int V // total node
+  vector<vector<int>> adj // adjacency lists
+}
+void DFS(int start_node)
+{
+  // Record which node has already visited. Initial as false, and the size the No. of node
+  vector<bool> visited(V, false);
+
+  // Call the recursive helper function to print DFS traversal
+  DFSUtil(start_node, visited)
+}
+
+void DFSUtil(int node, vector<bool>& visited)
+{
+  visited[node] = true
+  // Print value
+  cout << node << endl;
+
+  for(int i=0; i<adj[current_node].size(); i++)
+  {
+    int adj_node = adj[current_node][i];
+    if(!visited[adj_node])
+      DFSUtil(adj_node, visited)
+  }
 }
 ````
