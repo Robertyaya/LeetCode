@@ -88,8 +88,11 @@ void MergeSort(InputArray, int front, int end)
 [Graph intro](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
 
 ### BFS
-做完一次BFS可產生start_node到任何一個node ``shortest path``
+[207](207.course-schedule.cpp)
+[133](133_Clone_Graph.cpp)
+1. 做完一次BFS可產生start_node到任何一個node ``shortest path``
 並利用Predecessor可以back tracking回去找出這條路徑確切的軌跡
+2. 可利用visit判斷是否有環
 ````c++
 class Graph
 {
@@ -151,6 +154,8 @@ void BFS(int start_node)
 }
 ````
 ### DFS
+[207](207.course-schedule.cpp)
+[133](133_Clone_Graph.cpp)
 一樣會求得start_node到任何一個node的一條path, 但是這條path不一定是shortest path
 DFS相關應用參考上面連接
 利用discover and finish 
@@ -205,5 +210,32 @@ void DFSUtil(int current_node, vector<bool>& visited, vector<int>& discover, vec
     }
   }
   finish[current_node] = ++time; // Update finish time
+}
+````
+### Topological Sort 
+[210](210.course-schedule-ii.cpp)
+In directed graph中, node之間是有先後順序, 要找出一條從頭到尾的順序
+ex: 修課從basic -> advance的這條路線
+````c++
+Topological_Sort
+{
+  DFS(Graph) ->找出個別node的finish time
+
+  // pair -> (node, finish_time)
+  vector<pair<int, int>> LargeToSmall
+  LargeToSmall.resize(V)
+  for(int i=0;i<finish_time.size();i++)
+  {
+    // First 紀錄node_index, second紀錄所對應的finish_time
+    LargeToSmall[i].first = i;
+    LargeToSmall[i].second = finish_time[i];
+  }
+
+  // 根據finish time做sorting, 從大到小
+  sort(LargeToSamll.begin(), LargeToSmall.end(), [](auto a, auto b){a.second>b.second;});
+
+  // 最後這個順序就是出來的結果
+  for(auto v:LargetToSmall)
+    cout << v.first << " ";
 }
 ````
