@@ -73,12 +73,32 @@
 class Solution
 {
 public:
+    /**
+ * Time: O(V+E), Space: O(V+E)
+ * 解題流程: 此題要找出最小樹高, 因為為undiredted graph, 因此每一個node都可以當成root, 在graph越邊邊的node當root的話, 樹高會越大, 如果要越小, 則是找越中間的, 因為樹高在這邊其實代表的意義就是root為start_node, 到最遠一個node的path即為樹高, 因此為了找出最中間那個樹高, 利用剝洋蔥的概念一層一層往裡面
+ * 利用BFS
+ * graph[node].size() == 1 代表其adj node只有一個， 因此為最邊邊的那一層, 先將其塞入queue中, 在做BFS過程中, 每次都做一層, 做完一層之後再找出adj node為1的繼續放入queue中, 但要扣掉原本的那個node
+ * ex: 1-2-3-4-5
+ * 以此例子, 會先1,5塞入queue中, 在做BFS過程中, 2的那個node扣掉原本和1相連也只會剩一個3和其相連, 因此在將2,4放入queue中
+ * 最後有個關鍵就是, 最後不是剩下一個就是剩下2個, 因此當此時size<=2時就要break出來
+ * ex: 如果有3個 1-2-3
+ * 那1跟3當root一定大於2當root, 因此1,3都可以刪掉
+ * 2個: 原本可能是1-2-3-4  刪掉1跟4 後剩下2-3, 那2跟3當root其實都相同
+ * 這兩個當root數值會相同, 因此兩個都是答案
+ * 1個就不用說了就一定是root
+ * 
+ */
     vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges)
     {
         if (edges.empty())
             return {0};
 
-        // Build the undirected graph
+        if (edges.size() == 1)
+        {
+            return {0, 1};
+        }
+
+        // Build the undirected graph O(E)
         vector<unordered_set<int>> graph;
         graph.resize(n);
         for (auto v : edges)
@@ -88,16 +108,19 @@ public:
         }
 
         queue<int> que;
+        // O(V)
         for (int i = 0; i < graph.size(); i++)
         {
+            // 代表只有一個node和其相連, 所代表意義就是最外層的那個
             if (graph[i].size() == 1)
                 que.push(i);
         }
 
+        // O(V)
         while (!que.empty())
         {
             int size = que.size();
-            n -= size;
+            n -= size; //為了確定目前剩下多少個node
             for (int i = 0; i < size; i++)
             {
                 int node = que.front();
@@ -111,12 +134,12 @@ public:
                 }
             }
 
-            if (size <= 2)
+            if (n <= 2)
                 break;
         }
 
         vector<int> output;
-        for (int i = 0; i < que.size(); i++)
+        while (!que.empty())
         {
             int temp = que.front();
             que.pop();

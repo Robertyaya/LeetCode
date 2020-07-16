@@ -90,6 +90,7 @@ void MergeSort(InputArray, int front, int end)
 ### BFS
 [207](207.course-schedule.cpp)
 [133](133_Clone_Graph.cpp)
+[310](310.minimum-height-trees.cpp)
 1. 做完一次BFS可產生start_node到任何一個node ``shortest path``
 並利用Predecessor可以back tracking回去找出這條路徑確切的軌跡
 2. 可利用visit判斷是否有環
