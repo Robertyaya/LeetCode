@@ -1,5 +1,126 @@
 ## Array
-### Array Reverse
+## Binary Search
+[34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)
+````c++
+BinarySearch_Iterative(InputArray, int target)
+{
+  // The array need to sort
+  sort(InputArray);
+
+  int left = 0;
+  int right = InputArray.size()-1;
+
+  while(right >= left)
+  {
+    int mid = left + (right-left)/2;
+
+    // Find the target
+    if(mid == target)
+      return;
+    else if(InputArray[mid] > target)
+      right = mid-1;
+    else
+      left = mid+1;
+  }
+}
+````
+````c++
+BinarySearch_Recursive(InputArray, int left, int right, int target)
+{
+  if(left > right)
+    return false;
+  
+  int mid = left + (right-left)/2;
+  if(InputArray[mid] == target)
+    return true;
+  else if(InputArray[mid] > target)
+    return BinarySearch_Recursive(InputArray, left, mid-1);
+  else
+    return BinarySearch_Recursive(InputArray, mid+1, right)
+
+}
+BinarySearch(InputArray, int target)
+{
+  sort(InputArray)
+
+  BinarySearch_Recursive(InputArray, 0, InputArray.size()-1, target)
+}
+````
+### Rotated Sorted Array templete
+[33_Search_in_Rotated_Sorted_Array](33_Search_in_Rotated_Sorted_Array.cpp)
+[81_Search_in_Rotated_Sorted_Arrayii](81_Search_in_Rotated_Sorted_Array.cpp)
+```c++
+Search_Rotated_Array(InputArray, int target)
+{
+  int left = 0;
+  int right = InputArray.size()-1;
+  while(right>=left)
+  {
+    int mid = left+(right-left)/2;
+
+    if(InputArray[mid] == target)
+      return;
+    // 代表旋轉點在右邊, 而mid左邊為從小到大排好的
+    else if(InputArray[mid] > InputArray[right])
+    {
+      // 左邊的判斷式可以寫出來, 因此判斷是不是在mid的左邊, 如果不滿足則代表是在mid的右邊
+      if(InputArray[left] <= target && InputArray[mid] > target)
+        right = mid-1;
+      else
+        left = mid+1;
+    }
+    // 代表旋轉點在左邊, 而mid右邊為從小到大排好的
+    else 
+    {
+      if(InputArray[right] >= target && InputArray[mid] < target)
+        left = mid+1;
+      else
+        right = mid-1;
+    }
+    
+  }
+}
+```
+### Find Upper bound and Lower bound
+[34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)
+````c++
+SearchRange(InputArray, int target)
+{
+  int left = 0;
+  int right = InputArray.size(); // 這邊要故意超出一個
+  int lower_bound, upper_bound;
+
+  // Find lower bound of target value
+  while(right > left)
+  {
+    int mid = left + (right-left)/2;
+    if(target > nums[mid])
+      left = mid+1;
+    else
+      right = mid;
+  }
+  lower_bound = right;
+
+  // The target value not in the InputArray
+  if(right == InputArray.size() || nums[right]!=target)
+    return false
+  
+  // Find Uppder bound of target value
+  left = 0;
+  right =nums.size();
+  while(right > left)
+  {
+    int mid = left + (right-left)/2;
+    // 跟上面找lower bound完全一樣, 差別只在於這邊因為要找upper bound, 因此會多一個等號
+    if(target >= num[mid])
+      left = mid+1;
+    else
+      right = mid;
+  }
+  upper_bound = right-1;
+}
+````
+## Array Reverse
 ````c++
 Reverse(InputArray, start, end)
 {
@@ -12,7 +133,7 @@ Reverse(InputArray, start, end)
 
 }
 ````
-### Two Sum templete
+## Two Sum templete
 [1_Two_Sum](1_Two_Sum.cpp)
 [653_Input_is_a_BST](653_Input_is_a_BST.cpp)
 ````c++
@@ -35,7 +156,7 @@ TwoSum(input_container, target)
   }
 }
 ````
-### Two pointer templete
+## Two pointer templete
 [167_Input_Array_is_Sorted](167_Input_Array_is_Sorted.cpp)
 [11_Container_with_Most_Water](11_Container_with_Most_Water.cpp)
 [15_3Sum](15_3Sum.cpp)
@@ -59,6 +180,7 @@ TwoPointer(InputArray)
   }
 }
 ````
+
 ## Tree
 ### DFS
 ````c++

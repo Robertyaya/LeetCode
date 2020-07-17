@@ -4,72 +4,42 @@ using namespace std;
 /**
  * Time: O(logN), Space: O(1)
  * 解題流程: 分成兩個Binary search去做, 分別找left bound and right bound 
- * 特別要注意一些boundary case, 以及index會越界問題
- * 在找bound時, 和一般的binary search不同地方在於當找到相同數值時, 不是直接return, 而是將right point or left point指向此處, 從此處繼續找
- * 在找left bound時, 在交界處由於計算mid會無條件省略小數, 因此mid會進位到left bound左邊那一位則會進入判斷式if(nums[mid] < nums[right]), left會被更新因此不會有問題, 然而在找right bound時, 由於四捨五入mid會剛好在right bound的數值上, 則無法跳出回圈, 因此我們設一個mid++在right bound裡面處理此問題 
  */
 
 // O(logN)
 vector<int> searchRange(vector<int> &nums, int target)
 {
-  // Boundary case
-  if (nums.empty())
+  vector<int> res(2, -1);
+  int left = 0;
+  int right = nums.size();
+
+  // Find lower bound
+  while (right > left)
+  {
+    int mid = left + (right - left) / 2;
+    if (nums[mid] < target)
+      left = mid + 1;
+    else
+      right = mid;
+  }
+  if (right == nums.size() || nums[right] != target)
     return {-1, -1};
 
-  vector<int> answer;
-  int left = 0;
-  int right = nums.size() - 1;
+  res[0] = right;
 
-  // Only one value, boundary case
-  if (left == right)
+  // Find upper bound
+  left = 0;
+  right = nums.size();
+  while (right > left)
   {
-    if (nums[left] == target)
-      return {0, 0};
+    int mid = left + (right - left) / 2;
+    if (nums[mid] <= target)
+      left = mid + 1;
     else
-      return {-1, -1};
-  }
-
-  // Binary search (find left bound) O(logN)
-  while (right > left)
-  {
-    int mid = (left + right) / 2;
-    if (nums.at(mid) == target)
       right = mid;
-    else if (nums.at(mid) > target)
-      right = mid - 1;
-    else // nums[mid] < target
-      left = mid + 1;
   }
-  // Filter when right < 0
-  if (right < 0)
-    right = 0;
-  if (nums.at(right) != target)
-    answer.push_back(-1);
-  else
-    answer.push_back(right);
-
-  // Find right bound, same as find left bound, we don't need to update left index here
-  right = nums.size() - 1;
-  while (right > left)
-  {
-    int mid = (left + right) / 2;
-    if (mid != nums.size() - 1)
-      mid++;
-
-    if (nums.at(mid) == target)
-      left = mid;
-    else if (nums.at(mid) > target)
-      right = mid - 1;
-    else // nums[mid] < target
-      left = mid + 1;
-  }
-  if (right < 0)
-    right = 0;
-  if (nums.at(right) != target)
-    answer.push_back(-1);
-  else
-    answer.push_back(right);
-  return answer;
+  res[1] = right - 1;
+  return res;
 }
 
 //O(NlogN)(in worst case)

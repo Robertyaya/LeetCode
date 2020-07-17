@@ -12,37 +12,11 @@ using namespace std;
  * 7. 因此這題找出rotated point後其實就是一般的binary search, 在於取array數值時要將index%nums.size轉換成array的index來做
  * 6. 記得while迴圈要考慮當left=right的情況, 因此要加等號
  */
-int search(vector<int> &nums, int target) // Same as problem 81
-{
-  int left = 0;
-  int right = nums.size() - 1;
-  while (right >= left)
-  {
-    int mid = (left + right) / 2;
-    if (nums[mid] == target)
-      return mid;
-    if (nums[mid] > nums[right]) // half of left is sorted
-    {
-      if (nums[mid] > target && nums[left] <= target)
-        right = mid - 1;
-      else
-        left = mid + 1;
-    }
-    else // nums[mid] < nums[right] // half of right is sorted
-    {
-      if (nums[mid] < target && nums[right] >= target)
-        left = mid + 1;
-      else
-        right = mid - 1;
-    }
-  }
-  return -1;
-}
-
 int search(vector<int> &nums, int target) // More fast
 {
   int left = 0;
   int right = nums.size() - 1;
+
   // Find the rotatied point (minimum point) first
   // O(logN)
   while (right > left)
@@ -72,8 +46,31 @@ int search(vector<int> &nums, int target) // More fast
   }
   return -1;
 }
-int main()
+
+// Same as problem 81
+int search(vector<int> &nums, int target)
 {
-  std::vector<int> vec{4, 5, 6, 7, 0, 1, 2};
-  std::cout << search(vec, 0) << std::endl;
+  int left = 0;
+  int right = nums.size() - 1;
+  while (right >= left)
+  {
+    int mid = (left + right) / 2;
+    if (nums[mid] == target)
+      return mid;
+    if (nums[mid] > nums[right]) // half of left is sorted
+    {
+      if (nums[mid] > target && nums[left] <= target)
+        right = mid - 1;
+      else
+        left = mid + 1;
+    }
+    else // nums[mid] < nums[right] // half of right is sorted
+    {
+      if (nums[mid] < target && nums[right] >= target)
+        left = mid + 1;
+      else
+        right = mid - 1;
+    }
+  }
+  return -1;
 }
