@@ -157,6 +157,7 @@ void BFS(int start_node)
 ### DFS
 [207](207.course-schedule.cpp)
 [133](133_Clone_Graph.cpp)
+[399](399.evaluate-division.cpp)
 一樣會求得start_node到任何一個node的一條path, 但是這條path不一定是shortest path
 DFS相關應用參考上面連接
 利用discover and finish 
