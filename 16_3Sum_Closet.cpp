@@ -25,6 +25,7 @@ int threeSumClosest(vector<int> &nums, int target)
   // O(N^2)
   for (int i = 0; i < nums.size(); i++)
   {
+    // 固定住一個是數值
     int two_sum_target = target - nums[i];
     int l = i + 1;
     int r = nums.size() - 1;

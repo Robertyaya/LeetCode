@@ -22,7 +22,7 @@ vector<vector<int>> threeSum(vector<int> &nums)
     // Soring first O(NlogN)
     sort(nums.begin(), nums.end());
 
-    // O(N^2)
+    // O(N^2), 輪流當constant value
     for (int i = 0; i < nums.size(); i++)
     {
         // The target is same as two sum problem the input is sorted
@@ -43,13 +43,14 @@ vector<vector<int>> threeSum(vector<int> &nums)
                 vector<int> temp = {nums[i], nums[left], nums[right]};
                 answer.push_back(temp);
 
-                // Skip the same value
+                // Skip the same value, 要繼續找下一個可能
                 while (left < right && nums[left] == temp[1])
                     left++;
                 while (left < right && nums[right] == temp[2])
                     right--;
             }
         }
+        // 越過相同的constan value
         while (i + 1 < nums.size() && nums[i] == nums[i + 1])
             i++;
     }

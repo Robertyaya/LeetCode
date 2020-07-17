@@ -1,3 +1,117 @@
+## Array
+### Array Reverse
+````c++
+Reverse(InputArray, start, end)
+{
+  while(end>=start)
+  {
+    swap(InputArray[start], InputArray[end])
+    start++;
+    end--;
+  }
+
+}
+````
+### Two Sum templete
+[1_Two_Sum](1_Two_Sum.cpp)
+[653_Input_is_a_BST](653_Input_is_a_BST.cpp)
+````c++
+TwoSum(input_container, target)
+{
+  // 利用一個unordered_set紀錄已經tarverse過得value
+  unordered_set<type> set
+
+  // Traverse input_container (BST or array)
+  // If the BST, use pre-order traverse
+  for (auto v: input_container)
+  {
+    // 計算出和current value 所match的數值
+    match_value = target - v
+    
+    // 到unordered_set中檢查, 如果有則代表前面已經出現過, 因此return true, 沒有則將現在的放到set中
+    if(set.count(match_value))
+      return true
+    set.insert(v)
+  }
+}
+````
+### Two pointer templete
+[167_Input_Array_is_Sorted](167_Input_Array_is_Sorted.cpp)
+[11_Container_with_Most_Water](11_Container_with_Most_Water.cpp)
+[15_3Sum](15_3Sum.cpp)
+[16_3Sum_Closet](16_3Sum_Closet.cpp)
+[18_4Sum](18_4Sum.cpp)
+````c++
+TwoPointer(InputArray)
+{
+  int left = 0;
+  int right = InputArray.size()-1;
+  
+  while(left <= right)
+  {
+    if(achieve_goal)
+      break;
+  
+    if(some_condition)
+      left++;
+    else(some_condition)
+      right--;
+  }
+}
+````
+## Tree
+### DFS
+````c++
+void DFS(TreeNode* node)
+{
+  if(!node)
+    return;
+  
+  // Inorder
+  DFS(node->left)
+  cout<< node->val<<endl;
+  DFS(node->right)
+
+  // Preorder
+  cout << node->val << endl;
+  DFS(node->left)
+  DFS(node->right)
+
+  // Postorder
+  DFS(node->left)
+  DFS(node->right)
+  cout << node->val <<endl
+}
+int main()
+{
+  TreeNode* root;
+  DFS(root);
+}
+````
+### BFS
+````c++
+void BFS(TreeNode* node)
+{
+  // Use queue to do BFS
+  queue<TreeNode* >que;
+
+  // Push the first node into queue
+  que.push(node);
+  while(!que.empty())
+  {
+    TreeNode* current = que.front();
+    que.pop();
+    cout << current->val <<endl;
+
+    if(current->left)
+      que.push(current->left);
+    if(current->right)
+      que.push(current->right);
+  }
+}
+````
+
+
 ## Sorting
 ### Quick Sort
 利用Divide-and-Conquer
@@ -88,9 +202,9 @@ void MergeSort(InputArray, int front, int end)
 [Graph intro](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
 
 ### BFS
-[207](207.course-schedule.cpp)
-[133](133_Clone_Graph.cpp)
-[310](310.minimum-height-trees.cpp)
+[207.course-schedule](207.course-schedule.cpp)
+[133_Clone_Graph](133_Clone_Graph.cpp)
+[310.minimum-height-trees](310.minimum-height-trees.cpp)
 1. 做完一次BFS可產生start_node到任何一個node ``shortest path``
 並利用Predecessor可以back tracking回去找出這條路徑確切的軌跡
 2. 可利用visit判斷是否有環
@@ -155,9 +269,9 @@ void BFS(int start_node)
 }
 ````
 ### DFS
-[207](207.course-schedule.cpp)
-[133](133_Clone_Graph.cpp)
-[399](399.evaluate-division.cpp)
+[207.course-schedule](207.course-schedule.cpp)
+[133_Clone_Graph](133_Clone_Graph.cpp)
+[399.evaluate-division](399.evaluate-division.cpp)
 一樣會求得start_node到任何一個node的一條path, 但是這條path不一定是shortest path
 DFS相關應用參考上面連接
 利用discover and finish 
@@ -215,7 +329,7 @@ void DFSUtil(int current_node, vector<bool>& visited, vector<int>& discover, vec
 }
 ````
 ### Topological Sort 
-[210](210.course-schedule-ii.cpp)
+[210.course-schedule-ii](210.course-schedule-ii.cpp)
 In directed graph中, node之間是有先後順序, 要找出一條從頭到尾的順序
 ex: 修課從basic -> advance的這條路線
 ````c++

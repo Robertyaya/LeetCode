@@ -11,6 +11,7 @@
  * 2. 找到第一個descinding的數字後, 再從後面找來找一個比此數字還要大的數字來交換 (此數字為第一個descending的數字, 其實代表前面都是ascending,因此就是找第一個和其交換)
  * 3. 交換過後, 需要保持此數字後面所有的數字數值保持最小, 因此Reverse此數字後面數組, 大的丟到最後面, 小的丟到最前面, 從小到大排列
  * 4. Reverse: start指向第一個descending數字的後一個, end指向尾巴, 兩兩做交換直到交叉, 即可保持後面數組一定是從小到大排列 
+ * ex: 54361 -> swap -> 54631 -> Reverse[3,1] -> 54613
  */
 using namespace std;
 void Reverse(vector<int> &nums, int start)
