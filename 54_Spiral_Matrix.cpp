@@ -49,7 +49,7 @@ vector<int> spiralOrder(vector<vector<int>> &matrix)
       answer.push_back(matrix[i][width_end_index]);
     }
 
-    // Bottom
+    // Bottom, start_index == height_end_index代表為左到右長條, 在top做過
     if (start_index != height_end_index)
     {
       for (int i = start_index; i <= width_end_index; i++)
@@ -60,7 +60,7 @@ vector<int> spiralOrder(vector<vector<int>> &matrix)
       }
     }
 
-    // Left
+    // Left, start_index == width_end_index代表為上到下長條, 在right做過
     if (start_index != width_end_index)
     {
       for (int i = start_index; i <= height_end_index; i++)

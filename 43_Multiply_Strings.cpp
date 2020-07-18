@@ -73,12 +73,11 @@ string multiply(string num1, string num2)
     bool flag = true;
     for (int i = answer.size() - 1; i >= 0; i--)
     {
-        cout << answer[i] << endl;
         if (answer[i] == 0 && flag && answer.size() - 1 != 0)
             continue;
         else
         {
-            res += (answer[i] + '0');
+            res += to_string(answer[i]);
             flag = false;
         }
     }

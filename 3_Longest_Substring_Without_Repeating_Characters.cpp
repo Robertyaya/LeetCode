@@ -24,8 +24,8 @@ using namespace std;
 
 int lengthOfLongestSubstring(string s)
 {
+  // Check whether visit yet
   vector<int> set(256, -1);
-  int i = 0;          //sub-string right index
   int j = 0;          // sub-string left index
   int max_length = 0; // Record the sub-string max length
   for (int i = 0; i < s.size(); i++)

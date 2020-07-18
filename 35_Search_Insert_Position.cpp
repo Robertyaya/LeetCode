@@ -24,7 +24,6 @@ int searchInsert(vector<int> &nums, int target)
         else
             l = mid + 1;
     }
-    cout << mid << endl;
 
     if (nums[mid] < target)
         return mid + 1;

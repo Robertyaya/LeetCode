@@ -1,6 +1,7 @@
-## Array
+# Array
 ## Binary Search
 [34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)
+[374_Guess_Number_Higher_or_Lower](374_Guess_Number_Higher_or_Lower.cpp)
 ````c++
 BinarySearch_Iterative(InputArray, int target)
 {
@@ -81,8 +82,9 @@ Search_Rotated_Array(InputArray, int target)
   }
 }
 ```
-### Find Upper bound and Lower bound
+### Find Upper bound and Lower bound templete
 [34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)
+[278_First_Bad_Version](278_First_Bad_Version.cpp)
 ````c++
 SearchRange(InputArray, int target)
 {
@@ -120,17 +122,32 @@ SearchRange(InputArray, int target)
   upper_bound = right-1;
 }
 ````
-## Array Reverse
+### Find Insert Position templete
+[35_Search_Insert_Position](35_Search_Insert_Position.cpp)
 ````c++
-Reverse(InputArray, start, end)
+FindInsertPosition(InputArray, int target)
 {
-  while(end>=start)
+  int left = 0;
+  int right = InputArray.size()-1;
+  
+  while(right >= left)
   {
-    swap(InputArray[start], InputArray[end])
-    start++;
-    end--;
+    int mid = left + (right-left)/2;
+
+    // Can find the target in the input array
+    if(InputArray[mid] == target)
+      return;
+    else if(InputArray[mid] > target)
+      right = mid-1;
+    else
+      left = mid+1;
   }
 
+  // Can't find the target in the input array, need to return the position which be inserted
+  if(taget > InputArray[mid])
+    return mid+1;
+  else  
+    return mid;
 }
 ````
 ## Two Sum templete
@@ -180,8 +197,242 @@ TwoPointer(InputArray)
   }
 }
 ````
+## Back tracking templete
+[39_Combination_Sum](39_Combination_Sum.cpp)
+[40_Combination_Sum_2](40_Combination_Sum_2.cpp)
+[216_Combination_Sum_3](216_Combination_Sum_3.cpp)
+[78_Subsets](78_Subsets.cpp)
+[90_Subsets2](90_Subsets2.cpp)
+[46_Permutations](46_Permutations.cpp)
+[47_Permutations2](47_Permutations2.cpp)
+````c++
+BackTracking_Recursive(InputArray, int target, vector<vector<int>>& res, vector<int>& current)
+{
+  // 代表此時current vector裡面的數字已經加起來和target相同, 因此此路徑可以加到res裡面
+  if(target == 0)
+  {
+    res.push_back(current);
+    return;
+  }
 
-## Tree
+  /**
+   * Back tracking 的關鍵所在, 根據題目要求,
+   * 1. 看可不可以重複選數字
+   * 2. 是否inputArray會有duplicate num
+   * 等等需求去改變start選擇下一條路徑的起始點
+   * 想成路徑問題, 下一條路要選哪一個, 而且選的那個數字一定要小於target, 如果已經大於了因為前面已經sorting過, 那後面所有數字就根本不用選了一定不會和target相同
+   * 概念上有點像是DFS走迷宮概念, 一條路走到底之後再back track回來換另外一條
+   */
+  for i (start to end && target >= InputArray[i])
+  {
+    // 先走這條路徑
+    current.push_back(InputArray[i]);
+    BackTracking_Recursive(InputArray, target-InputArray[i], res, current);
+    // Back回來後pop_back出原本路徑換成另外一條繼續走 
+    current.pop_back();
+  }
+}
+BackTracking(InputArray, int target)
+{
+  // Sorting first
+  sort(InputArray.begin(), InputArray.end())
+
+  vector<vector<int>> res;
+  vector<int> current
+  BackTracking_Recursive(InputArray, target, res, current);
+}
+````
+## Matrix rotate or spiral order templete
+[48_Rotate_Image](48_Rotate_Image.cpp)
+[54_Spiral_Matrix](54_Spiral_Matrix.cpp)
+[59_Spiral_Matrix2](59_Spiral_Matrix2.cpp)
+````c++
+RotateMatrix(InputMatrix)
+{
+  int start_index = 0;
+  int end_index = InputMatrix.size()-1;
+  int level = 0;
+  for(end_index > start_index)
+  {
+    // 分層處理, 一層一層下去
+    // do something, base on the start_index, end_index and level
+
+    // update
+    start_index++;
+    end_index--;
+    level++;
+  }
+}
+````
+## DFS
+[1306_Jump_Game3](1306_Jump_Game3.cpp)
+
+## Kadane's Algorithm
+找出加起來數值最大的區間
+[53_Maximum_Subarray](53_Maximum_Subarray.cpp)
+[55_Jump_Game](55_Jump_Game.cpp)
+[45_Jump_Game2](45_Jump_Game2.cpp)
+````c++
+// O(N)
+Kadane_Algorithm(InputArray)
+{
+  // 當下最大的區間
+  int max_current = InputArray[0];
+  // 走到目前為止最大的區間
+  int max_sofar = InputArray[0];
+
+  for(int i=1;i<InputArray.size();i++)
+  {
+    // 如果current的數值比prefix+current數值還大, 那就沒必要繼續update之前的prefix, 直接替換成current value就好
+    max_current = max(max_current+nums[i], nums[i]);
+    max_sofar = max(max_current, max_sofar);
+  }
+  return max_sofar;
+}
+````
+# String
+## DFS
+[17_Letter_Combinations_of_Phone_Number](17_Letter_Combinations_of_Phone_Number.cpp)
+[22_Generate_Parentheses](22_Generate_Parentheses.cpp)
+
+## Anagram templete
+可利用變種的hash map形式, A~Z and a~z的ASCII code都在128以內, 因此可利用這點來做, 若都為小寫字母的話可以更省空間為26個a~z, 但每個都要扣掉'a'的ASCII
+[49_Group_Anagrams](49_Group_Anagrams.cpp)
+[242_Valid_Anagram](242_Valid_Anagram.cpp)
+[438_Find_All_Anagrams_In_String](438_Find_All_Anagrams_In_String.cpp)
+````c++
+// The string is long
+Anagrams(InputString1, InputString2)
+{
+  // If the char will not duplicate in string, we can use bool to save
+  // If the char will appear duplicate in string, we use int to record how many time it appear
+  int map[26] = {0};
+
+  // Build the map
+  for(auto v: InputString1)
+  {
+    // 將其壓縮到0~25
+    map[v-'a']++;
+  }
+
+  // Check the string
+  for(auto v: InputString2)
+  {
+    map[v-'a']--;
+
+    // Represent not match
+    if(map[v-'a'] < 0)
+      return false
+  }
+}
+
+Anagrams_SlidingWindow(InputString, target)
+{
+  int map[26] = {0}
+
+  // Build the map
+
+  // Sliding window to check
+  for(int i=0;i<InputString.size();i++)
+  {
+    // Add new char
+    map[InputString[i]-'a']++;
+
+    // Remove old char
+    map[InputString[i-target.size()]-'a']--;
+
+    // Check whether same as target string
+  }
+}
+
+// The string is short
+Anagrams(InputString1, InputString2)
+{
+  return sort(InputString1) == sort(InputString2);
+}
+````
+
+## Longest (condition) substring templete
+### No repeating char
+[3_Longest_Substring_Without_Repeating_Characters](3_Longest_Substring_Without_Repeating_Characters.cpp)
+````c++
+LongestNoRepeating(InputString)
+{
+  // Key is the char, value is its index
+  unordered_map<char, int> map
+
+  // Point to the left index of substring
+  int j = 0;
+
+  // Record the the max_length of substring
+  int max_length = 0;
+  
+  // Traverse whole string, O(N)
+  for(int i=0;i<InputString.size();i++)
+  {
+    // Not in the map yet, directly insert
+    if(!map.count(InputString[0]))
+      map[InputString[0]] = i;
+    else
+    {
+      int duplicate_index = map[InputString[0]];
+      
+      // Remove the value from index until next index of duplicate and update the j
+      while(j<=duplicate_index)
+      {
+        map.erase(InputString[j])
+        j++;
+      }
+      // Insert the current into map
+      map[InputString[i]] = i;
+    }
+    max_length = max(max_length, i-j+1);
+  }
+}
+````
+### Palindromic 
+[5_Longest_Palindromic_Substring](5_Longest_Palindromic_Substring.cpp)
+````c++
+int ExpandFromCenter(InputString, int start, int end)
+{
+  while(start>=0 && end<InputString.size() && InputString[start] == InputString[end])
+  {
+    start--;
+    end++;
+  }
+  return (end-start-1);
+}
+Longest_Palindromic(InputString)
+{
+  // Record the longest substirng left index and right index
+  int left = 0;
+  int right = 0;
+
+  for(int i=0; i<InputStirng.size(); i++)
+  {
+    // Palindromic is odd
+    int len1 = ExpandFromCenter(InputStirng, i, i);
+    // Palindromic is even 
+    int len2 = ExpandFromCenter(InputString, i, i+1);
+
+    int len = max(len1, len2);
+
+    // if current len longer than longest substirng, update left index and right index
+    if(len > right-left+1)
+    {
+      // Represent if this substring is even
+      if(len % 2 == 0)
+        left = i - len/2 + 1;
+      else
+        left = i - len/2;
+      right = i + len/2
+    }
+  }
+  return InputString.substr(left, right-left+1);  
+}
+````
+
+# Tree
 ### DFS
 ````c++
 void DFS(TreeNode* node)
@@ -234,7 +485,7 @@ void BFS(TreeNode* node)
 ````
 
 
-## Sorting
+# Sorting
 ### Quick Sort
 利用Divide-and-Conquer
 Time: O(NlogN)
@@ -319,7 +570,7 @@ void MergeSort(InputArray, int front, int end)
   Merge(array, front, mid, end)
 }
 ````
-## Graph
+# Graph
 可參考這系列Graph文章
 [Graph intro](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
 

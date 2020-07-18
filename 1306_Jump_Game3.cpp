@@ -13,6 +13,7 @@ using namespace std;
  */
 bool canReach_recursive(vector<int> &arr, vector<bool> &bool_vec, int start)
 {
+  // Out of array range and arrive the same value, return false
   if (start < 0 || start > arr.size() - 1 || bool_vec[start])
     return false;
 
@@ -25,16 +26,9 @@ bool canReach_recursive(vector<int> &arr, vector<bool> &bool_vec, int start)
 
 bool canReach(vector<int> &arr, int start)
 {
+  // To record whether visited yet
   vector<bool> bool_vec;
   bool_vec.resize(arr.size());
-  int zero_index;
-  for (int i = 0; i < arr.size(); i++)
-  {
-    if (arr[i] == 0)
-    {
-      zero_index = i;
-      break;
-    }
-  }
+
   return canReach_recursive(arr, bool_vec, start);
 }

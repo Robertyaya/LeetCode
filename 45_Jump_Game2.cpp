@@ -26,6 +26,8 @@ int jump(vector<int> &nums)
   for (int i = 0; i < nums.size() - 1; i++)
   {
     max_reach = max(max_reach, nums[i] + i);
+
+    // 當i==end, 代表現在已經走到目前步數最遠的距離, 因此要重新update end並要重新update下一步
     if (i == end)
     {
       end = max_reach;

@@ -110,6 +110,7 @@ string longestPalindrome(string s)
         // Even
         int len2 = ExpandFromCenter(s, i, i + 1);
 
+        // Find the range of substring base on len
         int len = max(len1, len2);
         if (len > end - start + 1)
         {
