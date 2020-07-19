@@ -433,35 +433,147 @@ Longest_Palindromic(InputString)
 ````
 
 # Tree
-### DFS
+## DFS
+### In-Order
+[94_Binary_Tree_Inorder_Traversal](94_Binary_Tree_Inorder_Traversal.cpp)
+Traverse the value from small to big
+``Recursive version``
 ````c++
-void DFS(TreeNode* node)
+InOrder(node)
+{
+  if(!node)
+    return 
+  
+  InOrder(node->left)
+  cout<<node->val<<endl;
+  InOrder(node->right)
+}
+int main(node)
+{
+  InOrder(node)
+}
+````
+``Iterative version``
+````c++
+int main(Node* root)
+{
+  stack<Node* > sta;
+  Node* node = root
+  while(node || !sta.empty())
+  {
+    if(node)
+    {
+      sta.push(node);
+      
+      // Move to next node
+      node = node->left;
+    }
+    else
+    {
+      Node* temp = sta.pop();
+      sta.pop();
+      
+      // Print the valuef
+      cout << temp->val << endl;
+
+      node = temp->right;  
+    }
+  }
+}
+````
+### Pre-Order
+[144_Binary_Tree_Preorder_Traversal](144_Binary_Tree_Preorder_Traversal.cpp)
+``Recursive version``
+````c++
+PreOrder(node)
+{
+  if(!node)
+    return 
+  
+  cout<<node->val<<endl;
+  PreOrder(node->left)
+  PreOrder(node->right)
+}
+int main(node)
+{
+  PreOrder(node)
+}
+````
+``Iterative version``
+````c++
+int main(Node* root)
+{
+  Node* node = root;
+  stack<Node*> sta;
+  
+  while(node || !sta.empty())
+  {
+    if(node)
+    {
+      sta.push(node);
+
+      // Print the value
+      cout << node->val << endl;
+      
+      // Move to next node
+      node = node->left;
+    }
+    else
+    {
+      Node* temp = sta.top();
+      sta.pop();
+      node = temp->right;
+    }
+    
+  }
+}
+````
+### Post-Order
+[145_Binary_Tree_Postorder_Traversal](145_Binary_Tree_Postorder_Traversal.cpp)
+``Recursive version``
+````c++
+PostOrder(node)
 {
   if(!node)
     return;
-  
-  // Inorder
-  DFS(node->left)
-  cout<< node->val<<endl;
-  DFS(node->right)
 
-  // Preorder
+  PostOrder(node->left);
+  PostOrder(node->right);
   cout << node->val << endl;
-  DFS(node->left)
-  DFS(node->right)
 
-  // Postorder
-  DFS(node->left)
-  DFS(node->right)
-  cout << node->val <<endl
 }
-int main()
+int main(node)
 {
-  TreeNode* root;
-  DFS(root);
+  PostOrder(node);
 }
 ````
-### BFS
+``Iterative version``
+````c++
+int main(Node* root)
+{
+  Node* node = root;
+  stack<Node*> sta;
+  vector<int> output;
+  
+  while(node || !sta.empty())
+  {
+    if(node)
+    {
+      sta.push(node);
+      output.insert(output.begin(), node->val);
+      // 先走右邊
+      node = node->right;
+    }
+    else
+    {
+      Node* temp = sta.top();
+      sta.pop();
+      node = temp->left;
+    }
+  }
+}
+````
+## BFS
 ````c++
 void BFS(TreeNode* node)
 {
@@ -726,5 +838,74 @@ Topological_Sort
   // 最後這個順序就是出來的結果
   for(auto v:LargetToSmall)
     cout << v.first << " ";
+}
+````
+# Trie
+將搜尋string的time complexity降成``O(M)``
+(M is the max size of string in trie)
+[208.implement-trie-prefix-tree](208.implement-trie-prefix-tree.cpp)
+````c++
+class TrieNode
+{
+  // Constructor
+  TrieNode()
+  {
+    isEnd = false;
+
+    for(int i=0; i<26; i++)
+      child[i] = nullptr;
+  }
+
+  TrieNode* child[26];
+  bool isEnd;
+}
+class Trie
+{
+  // Constructor
+  Trie()
+  {
+    root = new TrieNode();
+  }
+
+  // Insert the string into trie
+  Insert(str)
+  {
+    TrieNode* node = root;
+    for(auto& v: str)
+    {
+      // 將char轉成0~25之間的index
+      int index = v-'a';
+      
+      // 此char沒有在trie裡面, insert it
+      if(!node->child[index])
+        node->child[index] = new TrieNode;
+      
+      // Move to next level
+      node = node->child[index]
+    }
+    // 將最後一個node標記為此string的end
+    node->isEnd = true;
+  }
+
+  // Search the string into trie
+  Search(str)
+  {
+    TrieNode* node = root;
+    for(auto& v: str)
+    {
+      int index = v-'a';
+
+      // 如果此char不在trie裡面, 那就一定代表此string不在裡面
+      if(!node->child[index])
+        return false;
+      
+      node = nodex->child[index];
+    }
+    // 要確認是否此為結尾, 如果為結尾代表此input string有在trie裡面, 反之則代表只是其他string的prefix
+    return node->isEnd;
+  }
+
+private:
+  TrieNode* root;
 }
 ````

@@ -2,7 +2,7 @@
 using namespace std;
 /**
  * Time: O(N), Sapce: O(N)
- * 解題流程: 利用recursive, 每次update max_node and min_node
+ * 解題流程: 利用recursive, 每次update max_node and min_node, 分成left-subtree and right-subtree
  * Max_node == nullptr or min_node == nullptr可想成無窮大和無窮小
  * 
  */
