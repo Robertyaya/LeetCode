@@ -32,7 +32,7 @@ int numTrees(int n)
   {
     for (int j = 0; j <= i - 1; j++)
     {
-      dp[i] = dp[j] * dp[(i - 1) - j];
+      dp[i] += dp[j] * dp[(i - 1) - j];
     }
   }
 
@@ -58,15 +58,15 @@ int FindBST(int nums, unordered_map<int, int> &map)
   if (map.count(nums))
     return map[nums];
 
-  // Base case
+  // Base case, 當為[]也代表一種
   if (nums == 0)
     return 1;
 
   int value = 0;
   for (int i = 1; i <= nums; i++)
   {
-    int leftTreeNum = FindBST(i - 1);
-    int rightTreeNum = FindBST(nums - i);
+    int leftTreeNum = FindBST(i - 1, map);
+    int rightTreeNum = FindBST(nums - i, map);
     value += (leftTreeNum * rightTreeNum);
   }
 

@@ -453,6 +453,8 @@ int main(node)
   InOrder(node)
 }
 ````
+[173_Binary_Search_Iterator](173_Binary_Search_Iterator.cpp)  
+[230_Kth_Smallest_Element_In_BST](230_Kth_Smallest_Element_In_BST.cpp)  
 ``Iterative version``
 ````c++
 int main(Node* root)
@@ -595,6 +597,32 @@ void BFS(TreeNode* node)
   }
 }
 ````
+## Unique BST templete
+Dynamic programming, 從小的node來想  
+[95_Unique_BST2](95_Unique_BST2.cpp)  
+[96_Unique_BST](96_Unique_BST.cpp)  
+````c++
+UniqueBST(int n)
+{
+  // Initialize dp
+  dp[0], dp[1]
+
+  // Fill the dp
+  for(i: start_i ~ end_i)
+  {
+    // 輪流當root, 根據目前填到的dp
+    for(j: start_j ~ end_j) 
+    {
+      // nums of left sub-tree and right sub-tree
+      int left = dp[j]
+      int right = dp[total-j]
+
+      dp[i]+=(right*left)
+    }
+  } 
+}
+````
+
 
 
 # Sorting

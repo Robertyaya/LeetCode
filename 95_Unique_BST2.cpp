@@ -30,7 +30,7 @@ TreeNode *TreeClone(TreeNode *base, int offset)
 {
   // Base case
   if (base == nullptr)
-    return nullptr;
+    return;
 
   // Deep copy, 不能直接相等, 這樣會指向同一個TreeNode, 而是要new出來後將數值填進去
   TreeNode *newTree = new TreeNode(base->val + offset);
@@ -61,6 +61,7 @@ vector<TreeNode *> generateTrees(int n)
       int right = i - root; // 右子樹的長度
       int offset = root;
 
+      // 兩邊交互配對
       // Traverse 左子樹所有可能
       for (int j = 0; j < dp[left].size(); j++)
       {
