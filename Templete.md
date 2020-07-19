@@ -1,6 +1,6 @@
 # Array
 ## Binary Search
-[34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)
+[34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)  
 [374_Guess_Number_Higher_or_Lower](374_Guess_Number_Higher_or_Lower.cpp)
 ````c++
 BinarySearch_Iterative(InputArray, int target)
@@ -48,7 +48,7 @@ BinarySearch(InputArray, int target)
 }
 ````
 ### Rotated Sorted Array templete
-[33_Search_in_Rotated_Sorted_Array](33_Search_in_Rotated_Sorted_Array.cpp)
+[33_Search_in_Rotated_Sorted_Array](33_Search_in_Rotated_Sorted_Array.cpp)   
 [81_Search_in_Rotated_Sorted_Arrayii](81_Search_in_Rotated_Sorted_Array.cpp)
 ```c++
 Search_Rotated_Array(InputArray, int target)
@@ -83,7 +83,7 @@ Search_Rotated_Array(InputArray, int target)
 }
 ```
 ### Find Upper bound and Lower bound templete
-[34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)
+[34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)  
 [278_First_Bad_Version](278_First_Bad_Version.cpp)
 ````c++
 SearchRange(InputArray, int target)
@@ -174,10 +174,10 @@ TwoSum(input_container, target)
 }
 ````
 ## Two pointer templete
-[167_Input_Array_is_Sorted](167_Input_Array_is_Sorted.cpp)
-[11_Container_with_Most_Water](11_Container_with_Most_Water.cpp)
-[15_3Sum](15_3Sum.cpp)
-[16_3Sum_Closet](16_3Sum_Closet.cpp)
+[167_Input_Array_is_Sorted](167_Input_Array_is_Sorted.cpp)  
+[11_Container_with_Most_Water](11_Container_with_Most_Water.cpp)  
+[15_3Sum](15_3Sum.cpp)  
+[16_3Sum_Closet](16_3Sum_Closet.cpp)  
 [18_4Sum](18_4Sum.cpp)
 ````c++
 TwoPointer(InputArray)
@@ -198,13 +198,13 @@ TwoPointer(InputArray)
 }
 ````
 ## Back tracking templete
-[39_Combination_Sum](39_Combination_Sum.cpp)
-[40_Combination_Sum_2](40_Combination_Sum_2.cpp)
-[216_Combination_Sum_3](216_Combination_Sum_3.cpp)
-[78_Subsets](78_Subsets.cpp)
-[90_Subsets2](90_Subsets2.cpp)
-[46_Permutations](46_Permutations.cpp)
-[47_Permutations2](47_Permutations2.cpp)
+[39_Combination_Sum](39_Combination_Sum.cpp)  
+[40_Combination_Sum_2](40_Combination_Sum_2.cpp)  
+[216_Combination_Sum_3](216_Combination_Sum_3.cpp)  
+[78_Subsets](78_Subsets.cpp)  
+[90_Subsets2](90_Subsets2.cpp)  
+[46_Permutations](46_Permutations.cpp)  
+[47_Permutations2](47_Permutations2.cpp)  
 ````c++
 BackTracking_Recursive(InputArray, int target, vector<vector<int>>& res, vector<int>& current)
 {
@@ -243,9 +243,9 @@ BackTracking(InputArray, int target)
 }
 ````
 ## Matrix rotate or spiral order templete
-[48_Rotate_Image](48_Rotate_Image.cpp)
-[54_Spiral_Matrix](54_Spiral_Matrix.cpp)
-[59_Spiral_Matrix2](59_Spiral_Matrix2.cpp)
+[48_Rotate_Image](48_Rotate_Image.cpp)  
+[54_Spiral_Matrix](54_Spiral_Matrix.cpp)  
+[59_Spiral_Matrix2](59_Spiral_Matrix2.cpp)  
 ````c++
 RotateMatrix(InputMatrix)
 {
@@ -265,13 +265,13 @@ RotateMatrix(InputMatrix)
 }
 ````
 ## DFS
-[1306_Jump_Game3](1306_Jump_Game3.cpp)
+[1306_Jump_Game3](1306_Jump_Game3.cpp)  
 
 ## Kadane's Algorithm
-找出加起來數值最大的區間
-[53_Maximum_Subarray](53_Maximum_Subarray.cpp)
-[55_Jump_Game](55_Jump_Game.cpp)
-[45_Jump_Game2](45_Jump_Game2.cpp)
+找出加起來數值最大的區間  
+[53_Maximum_Subarray](53_Maximum_Subarray.cpp)  
+[55_Jump_Game](55_Jump_Game.cpp)    
+[45_Jump_Game2](45_Jump_Game2.cpp)  
 ````c++
 // O(N)
 Kadane_Algorithm(InputArray)
@@ -292,14 +292,14 @@ Kadane_Algorithm(InputArray)
 ````
 # String
 ## DFS
-[17_Letter_Combinations_of_Phone_Number](17_Letter_Combinations_of_Phone_Number.cpp)
+[17_Letter_Combinations_of_Phone_Number](17_Letter_Combinations_of_Phone_Number.cpp)  
 [22_Generate_Parentheses](22_Generate_Parentheses.cpp)
 
 ## Anagram templete
-可利用變種的hash map形式, A~Z and a~z的ASCII code都在128以內, 因此可利用這點來做, 若都為小寫字母的話可以更省空間為26個a~z, 但每個都要扣掉'a'的ASCII
-[49_Group_Anagrams](49_Group_Anagrams.cpp)
-[242_Valid_Anagram](242_Valid_Anagram.cpp)
-[438_Find_All_Anagrams_In_String](438_Find_All_Anagrams_In_String.cpp)
+可利用變種的hash map形式, A~Z and a~z的ASCII code都在128以內, 因此可利用這點來做, 若都為小寫字母的話可以更省空間為26個a~z, 但每個都要扣掉'a'的ASCII  
+[49_Group_Anagrams](49_Group_Anagrams.cpp)  
+[242_Valid_Anagram](242_Valid_Anagram.cpp)  
+[438_Find_All_Anagrams_In_String](438_Find_All_Anagrams_In_String.cpp)  
 ````c++
 // The string is long
 Anagrams(InputString1, InputString2)
@@ -354,7 +354,7 @@ Anagrams(InputString1, InputString2)
 
 ## Longest (condition) substring templete
 ### No repeating char
-[3_Longest_Substring_Without_Repeating_Characters](3_Longest_Substring_Without_Repeating_Characters.cpp)
+[3_Longest_Substring_Without_Repeating_Characters](3_Longest_Substring_Without_Repeating_Characters.cpp)  
 ````c++
 LongestNoRepeating(InputString)
 {
@@ -391,7 +391,7 @@ LongestNoRepeating(InputString)
 }
 ````
 ### Palindromic 
-[5_Longest_Palindromic_Substring](5_Longest_Palindromic_Substring.cpp)
+[5_Longest_Palindromic_Substring](5_Longest_Palindromic_Substring.cpp)  
 ````c++
 int ExpandFromCenter(InputString, int start, int end)
 {
@@ -435,8 +435,8 @@ Longest_Palindromic(InputString)
 # Tree
 ## DFS
 ### In-Order
-[94_Binary_Tree_Inorder_Traversal](94_Binary_Tree_Inorder_Traversal.cpp)
-Traverse the value from small to big
+Traverse the value from small to big  
+[94_Binary_Tree_Inorder_Traversal](94_Binary_Tree_Inorder_Traversal.cpp)  
 ``Recursive version``
 ````c++
 InOrder(node)
@@ -482,7 +482,7 @@ int main(Node* root)
 }
 ````
 ### Pre-Order
-[144_Binary_Tree_Preorder_Traversal](144_Binary_Tree_Preorder_Traversal.cpp)
+[144_Binary_Tree_Preorder_Traversal](144_Binary_Tree_Preorder_Traversal.cpp)  
 ``Recursive version``
 ````c++
 PreOrder(node)
@@ -529,7 +529,7 @@ int main(Node* root)
 }
 ````
 ### Post-Order
-[145_Binary_Tree_Postorder_Traversal](145_Binary_Tree_Postorder_Traversal.cpp)
+[145_Binary_Tree_Postorder_Traversal](145_Binary_Tree_Postorder_Traversal.cpp)  
 ``Recursive version``
 ````c++
 PostOrder(node)
@@ -684,12 +684,13 @@ void MergeSort(InputArray, int front, int end)
 ````
 # Graph
 可參考這系列Graph文章
-[Graph intro](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)
+[Graph intro](http://alrightchiu.github.io/SecondRound/graph-introjian-jie.html)  
 
 ### BFS
-[207.course-schedule](207.course-schedule.cpp)
-[133_Clone_Graph](133_Clone_Graph.cpp)
-[310.minimum-height-trees](310.minimum-height-trees.cpp)
+[207.course-schedule](207.course-schedule.cpp)  
+[133_Clone_Graph](133_Clone_Graph.cpp)  
+[310.minimum-height-trees](310.minimum-height-trees.cpp)  
+
 1. 做完一次BFS可產生start_node到任何一個node ``shortest path``
 並利用Predecessor可以back tracking回去找出這條路徑確切的軌跡
 2. 可利用visit判斷是否有環
@@ -754,12 +755,13 @@ void BFS(int start_node)
 }
 ````
 ### DFS
-[207.course-schedule](207.course-schedule.cpp)
-[133_Clone_Graph](133_Clone_Graph.cpp)
-[399.evaluate-division](399.evaluate-division.cpp)
+[207.course-schedule](207.course-schedule.cpp)  
+[133_Clone_Graph](133_Clone_Graph.cpp)  
+[399.evaluate-division](399.evaluate-division.cpp)  
 一樣會求得start_node到任何一個node的一條path, 但是這條path不一定是shortest path
 DFS相關應用參考上面連接
-利用discover and finish 
+利用discover and finish   
+
 ex: 
 1. 判斷是否有環
 2. Topological Sort
@@ -814,7 +816,7 @@ void DFSUtil(int current_node, vector<bool>& visited, vector<int>& discover, vec
 }
 ````
 ### Topological Sort 
-[210.course-schedule-ii](210.course-schedule-ii.cpp)
+[210.course-schedule-ii](210.course-schedule-ii.cpp)  
 In directed graph中, node之間是有先後順序, 要找出一條從頭到尾的順序
 ex: 修課從basic -> advance的這條路線
 ````c++
@@ -842,7 +844,7 @@ Topological_Sort
 ````
 # Trie
 將搜尋string的time complexity降成``O(M)``
-(M is the max size of string in trie)
+(M is the max size of string in trie)  
 [208.implement-trie-prefix-tree](208.implement-trie-prefix-tree.cpp)
 ````c++
 class TrieNode
