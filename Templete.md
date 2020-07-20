@@ -438,6 +438,8 @@ Longest_Palindromic(InputString)
 ### In-Order
 Traverse the value from small to big  
 [94_Binary_Tree_Inorder_Traversal](94_Binary_Tree_Inorder_Traversal.cpp)  
+[110_Balanced_Binary_Tree](110_Balanced_Binary_Tree.cpp)  
+[111_Minimum_Depth_Of_BinaryTree](111_Minimum_Depth_Of_BinaryTree.cpp)  
 ``Recursive version``
 ````c++
 InOrder(node)
@@ -621,6 +623,55 @@ UniqueBST(int n)
       dp[i]+=(right*left)
     }
   } 
+}
+````
+## Build the tree templete
+[105_Construct_BinaryTree_From_Preorder_and_Inorder](105_Construct_BinaryTree_From_Preorder_and_Inorder.cpp)  
+[106_Construct_BinaryTree_From_Inorder_and_Postorder](106_Construct_BinaryTree_From_Inorder_and_Postorder.cpp)  
+[108_Convert_Sorted_Array_To_BST](108_Convert_Sorted_Array_To_BST.cpp)  
+[109_Convert_Sorted_List_To_BST](109_Convert_Sorted_List_To_BST.cpp)  
+
+``Inorder + Preorder``
+``Inorder + Postorder``
+
+``Inoder:`` [ [left_subtree], root, [right_subtree] ]  
+``Preorder:`` [ root, [left_subtree], [right_subtree] ]
+``Postorder:`` [ [left_subtree], [right_subtree], root]
+````c++
+TreeNode* BuildRecursive(Inorder_vec, I_start, I_end, Preorder_vec, P_start, P_end, map)
+{
+  // Base case
+  if(I_start == I_end)
+  {
+    TreeNode* node = new TreeNode(Inorder_vec[I_start]);
+    return node;
+  }
+  
+  if(I_start > I_end)
+    return null;
+
+  // Get the root from "Preorder vec" or "Postorder vec"
+  int root_value = Preorder_vec[P_start];
+  int inorder_root_index = map[root_value];
+
+  // After we get the root_index in the inorder vector, we can get the num of left sub-tree
+  int left_num = inorder_root_index - I_start;
+  TreeNode* ans = new TreeNode(root_value);
+
+  // Keep build the tree
+  ans->left = BuildRecursive(Inorder_vec, I_start, inorder_root_index-1, Preorder_vec, P_start+1, P_start+left_num, map );
+
+  ans->right = BuildRecursive(Inorder_vec, inorder_root_index+1, I_end, Preorder_vec, P_start+left_num+1, P_end, map);
+}
+BuildTree(Inorder_vec, Preorder_vec)
+{
+  // Build the map
+  // Key: node's val
+  // value: index in inorder vector
+  for i: 0~Inorder_vec.size()
+    map[Inorder_vec[i]] = i;
+  
+  return BuildRecursive()
 }
 ````
 

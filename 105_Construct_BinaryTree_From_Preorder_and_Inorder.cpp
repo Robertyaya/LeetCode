@@ -54,6 +54,7 @@ TreeNode *buildTreeRecursive(vector<int> &preorder, int p_start, int p_end, vect
 }
 TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
 {
+  // Key: tree node value, value: index in inorder vector
   unordered_map<int, int> map;
   for (int i = 0; i < inorder.size(); i++)
   {
@@ -61,3 +62,5 @@ TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
   }
   return buildTreeRecursive(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1, map);
 }
+
+preorder = [ root, left_subtree, right_sub_tree ] root_index = preorder(p_start);
