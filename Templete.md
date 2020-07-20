@@ -434,6 +434,7 @@ Longest_Palindromic(InputString)
 
 # Tree
 ## DFS
+[100_Same_Tree](100_Same_Tree.cpp)
 ### In-Order
 Traverse the value from small to big  
 [94_Binary_Tree_Inorder_Traversal](94_Binary_Tree_Inorder_Traversal.cpp)  
