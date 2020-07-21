@@ -431,6 +431,51 @@ Longest_Palindromic(InputString)
   return InputString.substr(left, right-left+1);  
 }
 ````
+## Pattern Searching templete
+``Rabin-Karp Algorithm``  
+[28.implement-str-str](28.implement-str-str.cpp)
+````c++
+RabinKarp(string text, string pattern)
+{
+  int x = 257;
+  int mod = 1000000007;
+
+  int n = text.size();
+  int m = pattern.size();
+  int text_hash = 0;
+  int target_hash = 0;
+  int power = 1;
+
+  // 先計算power
+  for(int i=0;i<m-1;i++)
+    power = (power*x)%mod;
+  
+  // 計算target value還有text的初始hash value
+  for(int i=0;i<m;i++)
+  {
+    target_hash = (target_hash*x + pattern[i])%mod;
+    text_hash = (text_hash*x + text[i])%mod;
+  }
+
+  // 開始做rolling hash
+  for(int i=0;i<=n-m;i++)
+  {
+    // Find the matching substring in text
+    if(text_hash = target_hash)
+      return true;
+    
+    // Update the hash value, 扣掉頭,加上尾             
+    if(i<n-m)
+    {
+      text_hash = ((text_hash-text[i]*power)*x + text[i+m]) % mod;
+
+      if(text_hash < 0)
+        text_hash+=mod;
+    }
+  }
+  return false;
+}
+````
 
 # Tree
 ## DFS
