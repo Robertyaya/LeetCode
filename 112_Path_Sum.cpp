@@ -18,12 +18,7 @@ bool DFS(TreeNode *node, int sum)
   if (node->left == nullptr && node->right == nullptr && sum == 0)
     return true;
 
-  if (DFS(node->left, sum))
-    return true;
-  if (DFS(node->right, sum))
-    return true;
-
-  return false;
+  return DFS(node->left, sum) || DFS(node->right, sum);
 }
 bool hasPathSum(TreeNode *root, int sum)
 {

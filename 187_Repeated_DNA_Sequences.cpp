@@ -38,7 +38,7 @@ vector<string> findRepeatedDnaSequences(string s)
         key = key << 2;        // 空出兩格
         key = key | bit[s[i]]; // 新增進去
         key = key & 0xfffff;   // 移除最前面的兩個
-        if ((iter = map.find(key)) != map.end())
+        if (map.count(key))
         {
             if (map[key] < 2)
                 output.push_back(s.substr(i - 9, 10));
@@ -66,7 +66,6 @@ vector<string> findRepeatedDnaSequences(string s)
 
     // The key is the substring, value 是代表已經遇到多少次
     unordered_map<string, int> map;
-    unordered_map<string, int>::iterator map_iter;
     string ini_str = s.substr(0, 10);
     map[ini_str] = 1;
 
@@ -78,7 +77,7 @@ vector<string> findRepeatedDnaSequences(string s)
         str.push_back(s[i]);
 
         // Can find the target in map
-        if ((map_iter = map.find(str)) != map.end())
+        if (map.count(str))
         {
             // 代表次數僅有一次, 可以放入output裡面
             if (map[str] < 2)

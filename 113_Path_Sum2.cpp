@@ -10,28 +10,30 @@ using namespace std;
  */
 void DFS(TreeNode *node, int sum, vector<vector<int>> &output, vector<int> &res)
 {
-  if (node == nullptr)
+  if (!node)
     return;
 
   res.push_back(node->val);
   sum -= node->val;
 
-  // When arrive the leaf, need to check
-  if (node->left == nullptr && node->right == nullptr)
+  if (!node->left && !node->right && sum == 0)
   {
-    // This path is valid
-    if (sum == 0)
-      output.push_back(res);
-    // 回到上一層需要將這層push_back進去的pop出來
-    res.pop_back();
+    output.push_back(res);
     return;
   }
 
-  DFS(node->left, sum, output, res);
-  DFS(node->right, sum, output, res);
-  // 回到上一層需要將這層push_back進去的pop出來
-  res.pop_back();
+  if (node->left)
+  {
+    DFS(node->left, sum, output, res);
+    res.pop_back();
+  }
+  if (node->right)
+  {
+    DFS(node->right, sum, output, res);
+    res.pop_back();
+  }
 }
+
 vector<vector<int>> pathSum(TreeNode *root, int sum)
 {
   vector<vector<int>> output;

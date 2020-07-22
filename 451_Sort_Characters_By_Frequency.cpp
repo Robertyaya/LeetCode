@@ -9,15 +9,19 @@ using namespace std;
  * 
  */
 
-template <typename T, typename U>
-bool cmp(T &l, U &r)
-{
-  return l.first > r.first;
-}
+// template <typename T, typename U>
+// bool cmp(T &l, U &r)
+// {
+//   return l.first > r.first;
+// }
 string frequencySort(string s)
 {
+  auto compare = [](auto a, auto b) {
+    return a.first < b.first;
+  };
+
+  priority_queue<pair<int, char>, vector<pair<int, char>>, decltype(compare)> que(compare);
   unordered_map<char, int> map;
-  priority_queue<pair<int, char>> que;
 
   // Build the map O(N),初始化為0, 因此直接++就好
   for (char c : s)
@@ -31,9 +35,9 @@ string frequencySort(string s)
   string output = "";
   while (!que.empty())
   {
-    pair<int, char> temp = que.top();
+    pair<int, char> temp = que.top(); // O(1)
     que.pop();
-    output.append(temp.first, temp.second);
+    output.append(temp.first, temp.second); //append (size_t, char)
   }
   return output;
 }

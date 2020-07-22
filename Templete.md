@@ -1,3 +1,37 @@
+# STL container 用法
+## priority_queue
+````c++
+priority_queue<type, vector<type>, greater<type>>
+從小的先取出來
+
+priority_queue<type, vector<type>, less<type>>
+從大的先取出來
+
+自訂type時的標準寫法
+auto comp = [](auto a, auto b)
+{
+  return a > b; // 從小的先取出來
+
+  return a < b; // 從大的先取出來
+};
+priority_queue<type, vector<type>, decltype(comp)> que(comp);
+````
+## unordered_set and unordered_map
+````c++
+unordered_map<int, int> map
+
+// 判斷元素是否有在裡面
+if(map.count(value))
+
+// Traverse 
+for(auto v: map)
+  cout << v.first << " " << v.second;
+
+// Insert
+map.insert({1,1});
+map[1] = 1;
+````
+
 # Array
 ## Binary Search
 [34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)  
@@ -204,7 +238,8 @@ TwoPointer(InputArray)
 [78_Subsets](78_Subsets.cpp)  
 [90_Subsets2](90_Subsets2.cpp)  
 [46_Permutations](46_Permutations.cpp)  
-[47_Permutations2](47_Permutations2.cpp)  
+[47_Permutations2](47_Permutations2.cpp) 
+[113_Path_Sum2](113_Path_Sum2.cpp)   
 ````c++
 BackTracking_Recursive(InputArray, int target, vector<vector<int>>& res, vector<int>& current)
 {
@@ -476,6 +511,28 @@ RabinKarp(string text, string pattern)
   return false;
 }
 ````
+### Sliding Window templete
+Need to compare the matching string
+[187_Repeated_DNA_Sequences](187_Repeated_DNA_Sequences.cpp)
+````c++
+SlidingWindow(InputString, targetString)
+{
+  int n = targetString.size();
+  string sub_string = InputString.substr(0, n);
+  for(int i=0; i<=InputString.size()-n; i++)
+  {
+    // Do something here
+    //
+
+
+    // Remove the first
+    sub_string.erase(sub_string.begin());
+
+    // Add the last
+    sub_string.push_back(InputString[i+n]);
+  }
+}
+````
 
 # Tree
 ## DFS
@@ -485,6 +542,8 @@ Traverse the value from small to big
 [94_Binary_Tree_Inorder_Traversal](94_Binary_Tree_Inorder_Traversal.cpp)  
 [110_Balanced_Binary_Tree](110_Balanced_Binary_Tree.cpp)  
 [111_Minimum_Depth_Of_BinaryTree](111_Minimum_Depth_Of_BinaryTree.cpp)  
+[112_Path_Sum](112_Path_Sum.cpp)  
+[113_Path_Sum2](113_Path_Sum2.cpp)  
 ``Recursive version``
 ````c++
 InOrder(node)
