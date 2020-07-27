@@ -64,25 +64,75 @@
 // @lc code=start
 class Solution
 {
+    /**
+     * Time: O(M*N), Space: O(1)
+     * 解題流程:
+     * ex: 0 1 3 5 6
+     *     4 5 7 0 3
+     *     0 2 1 3 5 
+     *     0 1 6 7 8
+     * 1. 先掃[0][i] and [i][0] 確認是否有0, 有0代表整條都會為0因此先用bool記起來後面再改數字
+     * 2. 從[1][1]開始掃也就是扣除剛掃過的row and col, 如果過程中有遇到0, 先將其[i][0] and [0][i]標記成0 (記錄下來的概念)
+     * 3. 再從[1][1]開始掃, 如果遇到[i][0], or [0][i]為0, 則[i][j]為0
+     * 4. 根據第一步的bool, 如果row or col為true, 代表整條為0 則填為0
+     */
 public:
-    void FillZero(vector<vector<int>> &matrix, int row, int col)
-    {
-        for (int i = 0; i < matrix[0].size(); i++)
-            matrix[row][i] = 0;
-
-        for (int i = 0; i < matrix.size(); i++)
-            matrix[i][col] = 0;
-    }
     void setZeroes(vector<vector<int>> &matrix)
     {
-        vector<vector<int>> clone = matrix;
-        for (int i = 0; i < clone.size(); i++)
+        if (matrix.empty() || matrix[0].empty())
+            return;
+
+        int m = matrix.size();
+        int n = matrix[0].size();
+        bool row = false;
+        bool col = false;
+
+        // row
+        for (int i = 0; i < m; i++)
         {
-            for (int j = 0; j < clone[0].size(); j++)
+            if (matrix[i][0] == 0)
+                row = true;
+        }
+
+        // col
+        for (int i = 0; i < n; i++)
+        {
+            if (matrix[0][i] == 0)
+                col = true;
+        }
+
+        // 掃過一次標記
+        for (int i = 1; i < m; i++)
+        {
+            for (int j = 1; j < n; j++)
             {
-                if (clone[i][j] == 0)
-                    FillZero(matrix, i, j);
+                if (matrix[i][j] == 0)
+                {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
             }
+        }
+
+        // Fill the zero
+        for (int i = 1; i < m; i++)
+        {
+            for (int j = 1; j < n; j++)
+            {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                    matrix[i][j] = 0;
+            }
+        }
+
+        if (row)
+        {
+            for (int i = 0; i < m; i++)
+                matrix[i][0] = 0;
+        }
+        if (col)
+        {
+            for (int i = 0; i < n; i++)
+                matrix[0][i] = 0;
         }
     }
 };

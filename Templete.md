@@ -240,6 +240,7 @@ TwoPointer(InputArray)
 [46_Permutations](46_Permutations.cpp)  
 [47_Permutations2](47_Permutations2.cpp) 
 [113_Path_Sum2](113_Path_Sum2.cpp)   
+[77.combinations](77.combinations.cpp)  
 ````c++
 BackTracking_Recursive(InputArray, int target, vector<vector<int>>& res, vector<int>& current)
 {
@@ -546,7 +547,8 @@ RabinKarp(string text, string pattern)
 ````
 ### Sliding Window templete
 Need to compare the matching string
-[187_Repeated_DNA_Sequences](187_Repeated_DNA_Sequences.cpp)
+[187_Repeated_DNA_Sequences](187_Repeated_DNA_Sequences.cpp)  
+[76.minimum-window-substring](76.minimum-window-substring.cpp)  
 ````c++
 SlidingWindow(InputString, targetString)
 {
