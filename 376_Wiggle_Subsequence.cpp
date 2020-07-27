@@ -46,3 +46,10 @@ int wiggleMaxLength(vector<int> &nums)
   }
   return max(longest, longest_);
 }
+int main()
+{
+  vector<int> vec = {1, 2, 3, 4, 3, 5, 6, 7};
+  int value = wiggleMaxLength(vec);
+
+  cout << value << endl;
+}

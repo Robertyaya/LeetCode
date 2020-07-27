@@ -307,6 +307,7 @@ RotateMatrix(InputMatrix)
 [53_Maximum_Subarray](53_Maximum_Subarray.cpp)  
 [55_Jump_Game](55_Jump_Game.cpp)    
 [45_Jump_Game2](45_Jump_Game2.cpp)  
+[121_BestTime_To_Buy_And_Sell_Stock](121_BestTime_To_Buy_And_Sell_Stock.cpp)  
 ````c++
 // O(N)
 Kadane_Algorithm(InputArray)
@@ -464,6 +465,38 @@ Longest_Palindromic(InputString)
     }
   }
   return InputString.substr(left, right-left+1);  
+}
+````
+### Maximum Repeated Subarray
+[718_Maximum_Length_of_Repeated_Subarray](718_Maximum_Length_of_Repeated_Subarray.cpp)  
+````c++
+findLength(string str1, string str2)
+{
+  //dp[i][j] 紀錄最長repeated subarray
+  int m = str1.size();
+  int n  =str2.size();
+  int dp[m+1][n+1];
+
+  // Initialize
+  for(int i=0;i<=m;i++)
+    dp[i][0] = 0;
+  for(int i=0;i<=n;i++)
+    dp[0][i] = 0;
+  
+  // Fill the dp
+  int res = INT_MIN;
+  for(int i=1;i<=m;i++)
+  {
+    for(int j=1;j<=n;j++)
+    {
+      dp[i][j] = 0;
+      if(str1[i-1] == str2[j-1])
+        dp[i][j] = dp[i-1][j-1]+1;
+      
+      res = max(res, dp[i][j]);
+    }
+  }
+  return res;
 }
 ````
 ## Pattern Searching templete
