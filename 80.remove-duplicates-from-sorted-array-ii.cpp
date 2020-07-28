@@ -66,49 +66,57 @@
 // @lc code=start
 class Solution
 {
+    /**
+     * Time: O(N), Space: O(1)
+     * 解題流程: 
+     * ex: 1 1 1 2 2 3
+     * 利用two pointer的概念, v為traverse目前nums所有的int, i為遇到need to remove的數字時, 不會往前, i是為了記錄實際要return vector的index
+     * 1 1 1 2 2 3
+     *     *
+     * 到此位置i不會往前
+     * 1 1 1 2 2 3
+     *     i v
+     * v的數字會填到i的位置, 後面所有數字都會往前一格
+     * 同理如果有兩個地方需要remove, i會落後v兩格, 代表所有數字會往前兩個
+     * 
+     * 1 1 2 2 3 3 
+     * 接著在pop_back出多餘的數字
+     */
 public:
     int removeDuplicates(vector<int> &nums)
     {
         if (nums.empty() || nums.size() == 1)
             return nums.size();
 
-        int n = nums.size();
-        vector<int>::iterator iter = nums.begin();
-        int count = 0;
-        int pre_value = -1;
-        while (n >= 1)
+        int count = 0;           // 紀錄目前重複的數字有幾個
+        int pre_value = INT_MIN; // 紀錄前一個數字是什麼
+        int i = 0;
+        for (auto v : nums)
         {
-
-            //cout << *iter << " " << pre_value << endl;
-            if (*iter == pre_value)
+            // 當現在int和pre相同, count++, 當count>2代表此時數字已經出現第三次, i不會往前走
+            if (v == pre_value)
             {
                 count++;
-                if (count > 2)
+                if (count <= 2)
                 {
-                    while (iter <= nums.end() && *iter == pre_value)
-                    {
-                        nums.erase(iter);
-                        n--;
-                    }
-                }
-                else
-                {
-                    iter++;
-                    n--;
+                    nums[i] = v;
+                    i++;
                 }
             }
             else
             {
-                pre_value = *iter;
+                pre_value = v;
                 count = 1;
-                iter++;
-                n--;
+                nums[i] = v;
+                i++;
             }
         }
 
-        for (auto v : nums)
-            cout << v << " ";
-        cout << endl;
+        // Pop_back the value
+        int n = nums.size() - 1;
+        for (int j = 0; j <= n - i; j++)
+            nums.pop_back();
+
         return nums.size();
     }
 };
