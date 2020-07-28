@@ -3,6 +3,9 @@ using namespace std;
 
 int main()
 {
-  unordered_map<char, int> map;
-  std::cout << map['c'] << std::endl;
+  vector<int>::iterator iter;
+  vector<int> vec = {1, 3, 1, 2, 2, 3};
+  iter = vec.begin();
+  vec.erase(iter);
+  cout << *iter << endl;
 }

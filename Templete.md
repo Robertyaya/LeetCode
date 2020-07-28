@@ -240,7 +240,8 @@ TwoPointer(InputArray)
 [46_Permutations](46_Permutations.cpp)  
 [47_Permutations2](47_Permutations2.cpp) 
 [113_Path_Sum2](113_Path_Sum2.cpp)   
-[77.combinations](77.combinations.cpp)  
+[77.combinations](77.combinations.cpp) 
+[79.word-search](79.word-search.cpp)  
 ````c++
 BackTracking_Recursive(InputArray, int target, vector<vector<int>>& res, vector<int>& current)
 {
