@@ -569,6 +569,29 @@ SlidingWindow(InputString, targetString)
   }
 }
 ````
+# LinkedLsit
+## Reverse templete
+````c++
+Reverse(ListNode* head)
+{
+  ListNode* prev = null;
+  ListNode* cur = head;
+  ListNode* next = null;
+  while(cur)
+  {
+    // Store next
+    next = cur->next
+
+    // Reverse cur node
+    cur->next = prev;
+
+    // Update pointer
+    prev = cur;
+    cur = next;
+
+  }
+}
+````
 
 # Tree
 ## DFS
@@ -737,6 +760,30 @@ void BFS(TreeNode* node)
       que.push(current->left);
     if(current->right)
       que.push(current->right);
+  }
+}
+````
+````c++
+``一層一層traverse``
+void BFS(TreeNode* node)
+{
+  queue<TreeNode* >que;
+  que.push(node);
+  while(!que.empty())
+  {
+    for(int i=que.size();i>=1;i--)
+    {
+      TreeNode* current = que.front();
+      que.pop();
+
+      // Print the value
+      cout << current->val << endl;
+      
+      if(current->left)
+        que.push(current->left);
+      if(current->right)
+        que.push(current->right);
+    }
   }
 }
 ````

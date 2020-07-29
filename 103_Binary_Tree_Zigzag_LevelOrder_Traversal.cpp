@@ -30,7 +30,7 @@ vector<vector<int>> zigzagLevelOrder(TreeNode *root)
             // 從後面填回來
             if (level % 2 == 1)
                 current_level[i - 1] = node->val;
-            else // 從前面填過去
+            else // 照順序填過去
             {
                 current_level[j] = node->val;
                 j++;
