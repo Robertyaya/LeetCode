@@ -15,8 +15,8 @@ void DFS(vector<vector<char>> &board, int i, int j)
   if (i == board.size() || j == board[0].size() || i < 0 || j < 0)
     return;
 
-  // 已經到達過
-  if (board[i][j] == '$')
+  // 已經到達過或是到達X
+  if (board[i][j] == '$' || board[i][j] == 'X')
     return;
   if (board[i][j] == 'O')
   {
@@ -60,7 +60,7 @@ void solve(vector<vector<char>> &board)
     {
       if (board[i][j] == '$')
         board[i][j] = 'O';
-      if (board[i][j] == 'O')
+      else if (board[i][j] == 'O')
         board[i][j] = 'X';
     }
   }

@@ -3,6 +3,7 @@ using namespace std;
 
 int main()
 {
-  char ch = 'A';
-  cout << int(ch) - 'A' + 1 << endl;
+  string str = "123";
+
+  cout << str.substr(3) << endl;
 }
