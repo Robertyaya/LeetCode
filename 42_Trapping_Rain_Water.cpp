@@ -27,6 +27,7 @@ int trap(vector<int> &height)
       int move_pointer = left;
       while (height[move_pointer] <= height[left])
       {
+        // heigth[left]-height[move_pointer]代表的就是可儲水的量
         sum += (height[left] - height[move_pointer]);
         move_pointer++;
 

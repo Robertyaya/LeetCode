@@ -1,5 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+/**
+ * One pass (不用從頭跑一次確認整個長度)
+ * 利用Math的推論
+ */
+ListNode *removeNthFromEnd(ListNode *head, int n)
+{
+  ListNode *prev = head;
+  ListNode *cur = head;
+  for (int i = 1; i <= n; i++)
+    cur = cur->next;
+
+  // 代表要remove掉的為head
+  if (!cur)
+    return head->next;
+
+  while (cur->next)
+  {
+    cur = cur->next;
+    prev = prev->next;
+  }
+  // prev->next為要remove掉的那個node
+  prev->next = prev->next->next;
+  return head;
+}
 /**
  * Time: O(N), Space: O(N)
  * 解題流程: 此題為單向linkedlist, 因此需要先traverse過後知道length

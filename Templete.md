@@ -30,6 +30,22 @@ for(auto v: map)
 // Insert
 map.insert({1,1});
 map[1] = 1;
+
+// Find
+auto v = map.find(key)
+if(v!=map.end())  // 有在map裡面
+if(v==map.end())  // 沒有在map裡面
+````
+## list
+````c++
+// 利用splice來做資料搬移可以在O(1)裡面執行
+list<int> l;
+list<int> l2 = {2};
+
+l.splice(l.begin(), l, l2.begin())  // 將l2第一個node搬到l的begin()位置
+l.push_back()
+l.push_front()
+
 ````
 
 # Array
