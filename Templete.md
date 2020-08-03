@@ -609,6 +609,53 @@ Reverse(ListNode* head)
   }
 }
 ````
+## Sorting templete
+Linkedlist因為沒辦法直接取得index, 因此利用``Merge sort``這種方式連接的比較好
+[148.sort-list](148.sort-list.cpp)
+````c++
+ListNode* merge(ListNode* left, ListNode* right)
+{
+  ListNode* dummy = new ListNode(-1);
+  ListNode* cur = dummy;
+  while(left && right)
+  {
+    if(left->val <= right->val)
+    {
+      cur->next = left;
+      left = left->next;
+    }
+    else
+    {
+      cur->next = right;
+      right = right->next;
+    }
+    cur = cur->next;
+  }
+  if(left)
+    cur->next = left;
+  if(right)
+    cur->next = right;
+
+  return dummy->next
+}
+ListNode *sortList(ListNode *head)
+{
+  // 利用快慢指針找到mid node
+  ListNode* fast = head;
+  ListNode* slow = head;
+  ListNode* pre;
+  while(fast && fast->next)
+  {
+    pre = slow;
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+
+  // 此處recursive將linkedlist分成兩半後再merge
+  pre->next = nullptr;
+  return merge(sortList(head), sortList(slow));
+}
+````
 
 # Tree
 ## DFS

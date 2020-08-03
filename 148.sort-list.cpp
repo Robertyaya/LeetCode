@@ -74,7 +74,7 @@ public:
             slow = slow->next;
             fast = fast->next->next;
         }
-        // 此處將linkedlist分成兩部分linkedlist後再merge起來, 以head為開頭以及以slow為開頭, 因此head為開頭最後面要接到null
+        // 此處將Recursive將linkedlist分成兩部分linkedlist後再merge起來, 以head為開頭以及以slow為開頭, 因此head為開頭最後面要接到null
         pre->next = NULL;
         return merge(sortList(head), sortList(slow));
     }
