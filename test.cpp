@@ -3,8 +3,7 @@ using namespace std;
 
 int main()
 {
-  string str = "0.6";
-  str.insert(2, "(");
-  str.push_back('1');
-  cout << str << endl;
+  int a = 2;
+  char ch = a + 'A' - 1;
+  cout << ch << endl;
 }
