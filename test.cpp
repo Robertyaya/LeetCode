@@ -3,7 +3,6 @@ using namespace std;
 
 int main()
 {
-  int a = 2;
-  char ch = a + 'A' - 1;
-  cout << ch << endl;
+  unordered_map<char, int> map;
+  cout << map['c'] << endl;
 }

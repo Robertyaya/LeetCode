@@ -588,7 +588,9 @@ SlidingWindow(InputString, targetString)
 ````
 # LinkedLsit
 ## Reverse templete
+[206.reverse-linked-list](206.reverse-linked-list.cpp)
 ````c++
+// Iterative version
 Reverse(ListNode* head)
 {
   ListNode* prev = null;
@@ -605,8 +607,22 @@ Reverse(ListNode* head)
     // Update pointer
     prev = cur;
     cur = next;
-
   }
+}
+````
+````c++
+// Recursive version
+Reverse(ListNode* head)
+{
+  if(!head)
+    return nullptr;
+  
+  if(!head->next)
+    return head;
+  ListNode* newHead = Reverse(head->next);
+  head->next->next = head;
+  head->next = head;
+  return newHead;
 }
 ````
 ## Sorting templete
