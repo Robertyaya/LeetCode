@@ -36,6 +36,10 @@ auto v = map.find(key)
 if(v!=map.end())  // 有在map裡面
 if(v==map.end())  // 沒有在map裡面
 ````
+## (multiset and set) and map
+[220.contains-duplicate-iii](220.contains-duplicate-iii.cpp)  
+相較於unordered_map and unordered_set為有序資料
+
 ## list
 ````c++
 // 利用splice來做資料搬移可以在O(1)裡面執行
@@ -45,7 +49,6 @@ list<int> l2 = {2};
 l.splice(l.begin(), l, l2.begin())  // 將l2第一個node搬到l的begin()位置
 l.push_back()
 l.push_front()
-
 ````
 
 # Array
@@ -953,7 +956,10 @@ Time: O(NlogN)
 // 目的是根據pivot大小, 將array分成小於pivot, pivot, 大於pivot 這3個部分
 int Partition(InputArray, front, end)
 {
-  // 隨便取, 取end為了迭代方便
+  // 隨便取, 取end為了迭代方便, 也可以利用rand()這樣會更加快
+  int pivot_index = front + rand()%(end-front+1);
+  // 換到最右邊去
+  swap(InputArray[pivot_index], InputArray[end]);
   int pivot = InputArray[end]
 
   // i, 一直指向小於pivot數值的最後一個
@@ -1025,7 +1031,7 @@ void MergeSort(InputArray, int front, int end)
 
   int mid = front + (end-front)/2;
   MergeSort(InputArray, front, mid)
-  MergeSort(InputArray, mid+1, front)
+  MergeSort(InputArray, mid+1, end)
   Merge(array, front, mid, end)
 }
 ````

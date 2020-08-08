@@ -3,7 +3,12 @@ using namespace std;
 
 int main()
 {
-  vector<pair<int, bool>> vec;
-  vec.resize(5);
-  cout << vec[0].first << " " << vec[0].second << endl;
+  multiset<int> set;
+  for (int i = 0; i < 10; i++)
+  {
+    int temp = rand() % 10;
+    set.insert(temp);
+  }
+  for (auto v : set)
+    cout << v << " ";
 }
