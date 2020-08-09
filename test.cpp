@@ -3,12 +3,10 @@ using namespace std;
 
 int main()
 {
-  multiset<int> set;
+  stack<int> sta;
   for (int i = 0; i < 10; i++)
-  {
-    int temp = rand() % 10;
-    set.insert(temp);
-  }
-  for (auto v : set)
-    cout << v << " ";
+    sta.push(i);
+
+  for (int i = 0; i < sta.size(); i++)
+    cout << sta[i] << endl;
 }
