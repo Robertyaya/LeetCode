@@ -37,36 +37,39 @@
 // @lc code=start
 class Solution
 {
+    /**
+     * Time: O(N^2), Space: O(N) 
+     * 解題流程: ugly number為本身為ugly number去乘上2,3,5, 但過程中可能會有相同的數字
+     * 在while迴圈解決, 直到找到和上一個數字不同即為下一個ugly number
+     */
 public:
-    bool isUgly(int num)
-    {
-        // Base case
-        if (num == 0)
-            return false;
-        if (num == 1 || num == 2 || num == 3 || num == 5)
-            return true;
-
-        if (num % 2 == 0 && isUgly(num / 2))
-            return true;
-        if (num % 3 == 0 && isUgly(num / 3))
-            return true;
-        if (num % 5 == 0 && isUgly(num / 5))
-            return true;
-        return false;
-    }
     int nthUglyNumber(int n)
     {
-        int i = 1;
-        int count = 0;
-        while (count < n)
+        // 最小的先出來
+        priority_queue<long, vector<long>, greater<long>> pq;
+        pq.push(1);
+        int pre = 0;
+        int t;
+        // O(N)
+        for (int i = 1; i <= n; i++)
         {
-            if (isUgly(i))
+            // O(logN)
+            t = pq.top();
+            pq.pop();
+            // 直到找到和pre不相同的數字代表是下一個ugly number
+            while (!pq.empty() && t == pre)
             {
-                count++;
+                t = pq.top();
+                pq.pop();
             }
-            i++;
+
+            // O(N), 將下一個ugly number放入heap中
+            pq.push((long)t * 2);
+            pq.push((long)t * 3);
+            pq.push((long)t * 5);
+            pre = t;
         }
-        return i - 1;
+        return t;
     }
 };
 // @lc code=end
