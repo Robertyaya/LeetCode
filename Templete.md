@@ -53,6 +53,7 @@ l.push_front()
 
 # Array
 ## Binary Search
+[Very powerful templete!!!!!!!](https://leetcode.com/discuss/general-discussion/786126/python-powerful-ultimate-binary-search-template-solved-many-problems/657092)
 [34_Find_First_and_Last_Position_In_SortedArray](34_Find_First_and_Last_Position_In_SortedArray.cpp)  
 [374_Guess_Number_Higher_or_Lower](374_Guess_Number_Higher_or_Lower.cpp)
 ````c++

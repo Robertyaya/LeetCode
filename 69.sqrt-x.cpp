@@ -16,29 +16,17 @@ public:
     {
         if (x == 0 || x == 1)
             return x;
-
-        int left = 1;
-        int right = x / 2;
-
-        while (left <= right)
+        int l = 1;
+        int r = x / 2 + 1;
+        while (l < r)
         {
-            int mid = left + (right - left) / 2;
-            if (pow(mid, 2) == x)
-                return mid;
-            else if (pow(mid, 2) > x)
-            {
-                right = mid - 1;
-                if (pow(right, 2) < x)
-                    return right;
-            }
+            long mid = l + (r - l) / 2;
+            if (mid * mid > x)
+                r = mid;
             else
-            {
-                left = mid + 1;
-                if (pow(left, 2) > x)
-                    return mid;
-            }
+                l = mid + 1;
         }
-        return -1;
+        return l - 1;
     }
 };
 // @lc code=end
