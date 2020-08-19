@@ -10,25 +10,17 @@ using namespace std;
  */
 int searchInsert(vector<int> &nums, int target)
 {
-    // Binary search
     int l = 0;
-    int r = nums.size() - 1;
-    int mid;
-    while (r >= l)
+    int r = nums.size();
+    while (l < r)
     {
-        mid = (l + r) / 2;
-        if (nums[mid] == target)
-            return mid;
-        else if (nums[mid] > target)
-            r = mid - 1;
+        int mid = l + (r - l) / 2;
+        if (nums[mid] >= target)
+            r = mid;
         else
             l = mid + 1;
     }
-
-    if (nums[mid] < target)
-        return mid + 1;
-    else
-        return mid;
+    return l;
 }
 int main()
 {
