@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-  int bit = 5;
-  int temp = ~bit + 1;
+  int mask = 1;
+  int temp = mask << 1;
   cout << temp << endl;
 }
