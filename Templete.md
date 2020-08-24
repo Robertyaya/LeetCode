@@ -349,6 +349,41 @@ Kadane_Algorithm(InputArray)
   return max_sofar;
 }
 ````
+## Union Find
+````c++
+class UnionFindSet:
+{
+  UnionFindSet(n)
+  {
+    parents=[1..n];
+    // ranks在這邊代表樹高
+    ranks=[0..0] (n zeros);
+  }
+
+  int Find(x)
+  {
+    // 同時做path compression, 將每個node的parent指向root
+    if(x!=parents[x])
+      parents[x]=Find(parents[x]);
+    return parerts[x];
+  }
+
+  void Union(int x, int y)
+  {
+    int px = Find(x);
+    int py = Find(y);
+    if(ranks[px] > ranks[py])
+      parents[py] = px;
+    else if (ranks[py] > ranks[px])
+      parents[px] = py;
+    else
+    {
+      parents[py] = px;
+      ranks[px]++;
+    }
+  }
+}
+````
 # String
 ## DFS
 [17_Letter_Combinations_of_Phone_Number](17_Letter_Combinations_of_Phone_Number.cpp)  
