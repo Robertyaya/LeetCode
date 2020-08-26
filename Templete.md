@@ -40,6 +40,25 @@ if(v==map.end())  // 沒有在map裡面
 [220.contains-duplicate-iii](220.contains-duplicate-iii.cpp)  
 相較於unordered_map and unordered_set為有序資料
 
+
+## lower_bound and upper bound
+````c++
+// lower_bound會回傳大於等於val的位置, upper_bound回傳第一個大於val的位置（沒辦法返回相同的數字)
+int myints[] = {10,20,30,30,20,10,10,20};
+std::vector<int> v(myints,myints+8);           // 10 20 30 30 20 10 10 20
+
+std::sort (v.begin(), v.end());                // 10 10 10 20 20 20 30 30
+
+std::vector<int>::iterator low,up;
+low=std::lower_bound (v.begin(), v.end(), 20);          
+up= std::upper_bound (v.begin(), v.end(), 20);
+
+std::cout << "lower_bound at position " << (low- v.begin()) << '\n';
+std::cout << "upper_bound at position " << (up - v.begin()) << '\n';
+// lower_bound at position 3
+// upper_bound at position 6
+````
+
 ## list
 ````c++
 // 利用splice來做資料搬移可以在O(1)裡面執行
