@@ -11,7 +11,7 @@ using namespace std;
  * 在做sliding window時, 每次需要刪除最前面以及新增最後面
  * key = key << 2 | bit[s[i]]新增到最後面
  * key & 0xfffff 移除最前面兩個
- * 0xfffff = 1111111111
+ * 0xfffff = 1111111111..20位
  */
 vector<string> findRepeatedDnaSequences(string s)
 {
@@ -37,7 +37,7 @@ vector<string> findRepeatedDnaSequences(string s)
     {
         key = key << 2;        // 空出兩格
         key = key | bit[s[i]]; // 新增進去
-        key = key & 0xfffff;   // 移除最前面的兩個
+        key = key & 0xfffff;   // 移除最前面的兩個， 讓window持續保持20位
         if (map.count(key))
         {
             if (map[key] < 2)

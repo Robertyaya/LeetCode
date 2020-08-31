@@ -1,9 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
+void thread_function()
+{
+  cout << "thread" << endl;
+}
 
 int main()
 {
-  vector<int> vec = {1, 2, 4, 5, 6};
-  auto it = lower_bound(vec.begin(), vec.end(), 3);
-  cout << *it << endl;
+  std::thread t1(thread_function);
+  t1.join();
+  return 0;
 }

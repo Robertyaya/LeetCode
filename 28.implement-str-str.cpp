@@ -14,28 +14,17 @@ class Solution
 public:
     int strStr(string haystack, string needle)
     {
-        if (needle.size() == 0)
-            return 0;
-        int m = haystack.size() - 1;
-        int n = needle.size() - 1;
-        if (n > m)
-            return -1;
-
-        for (int i = 0; i <= m - n; i++)
+        unordered_set<string> set;
+        set.insert(needle);
+        int a = haystack.size();
+        int b = needle.size();
+        for (int i = 0; i <= a - b; i++)
         {
-            int temp = i;
-            for (int j = 0; j <= n; j++)
-            {
-                if (haystack[temp] != needle[j])
-                    break;
-
-                if (j == needle.size() - 1)
-                    return i;
-
-                temp++;
-            }
+            string str = haystack.substr(i, needle.size());
+            if (set.count(str))
+                return i;
         }
-        return -1;
+        return haystack == needle ? 0 : -1;
     }
 
     /**
