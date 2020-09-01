@@ -28,22 +28,43 @@ class NestedIterator
 public:
     NestedIterator(vector<NestedInteger> &nestedList)
     {
+        // Traverse 所有element, 如果是integer, 則直接放入vector, 如果不是則recursive繼續下去traverse
+        for (int i = 0; i < nestedList.size(); i++)
+        {
+            if (nestedList[i].isInteger())
+                que.push(nestedList[i].getInteger());
+            else
+            {
+                Help(nestedList[i].getList(), que);
+            }
         }
+    }
 
-    void Help(vector<NestedIterator> &vec, int i)
+    void Help(const vector<NestedInteger> &nestedList, queue<int> &que)
     {
+        for (int i = 0; i < nestedList.size(); i++)
+        {
+            if (nestedList[i].isInteger())
+                que.push(nestedList[i].getInteger());
+            else
+                Help(nestedList[i].getList(), que);
+        }
     }
 
     int next()
     {
+        int value = que.front();
+        que.pop();
+        return value;
     }
 
     bool hasNext()
     {
+        return !que.empty();
     }
 
 private:
-    vector<int> vec;
+    queue<int> que;
 };
 
 /**
