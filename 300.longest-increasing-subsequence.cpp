@@ -63,26 +63,26 @@ public:
      * 每次都要從頭搜一次, 如果nums[i] > nums[j]代表可以納入此substring中， 選一個最大的放入dp[i]
      * res用來記錄從頭到尾最長的substring 
      */
-    // int lengthOfLIS(vector<int> &nums)
-    // {
-    //     if (nums.empty())
-    //         return 0;
+    int lengthOfLIS(vector<int> &nums)
+    {
+        if (nums.empty())
+            return 0;
 
-    //     vector<int> dp(nums.size(), 0);
-    //     dp[0] = 1;
-    //     int res = 1; // 紀錄從頭到尾最長的substring
-    //     for (int i = 1; i < nums.size(); i++)
-    //     {
-    //         int max_dp = 0;
-    //         for (int j = 0; j < i; j++)
-    //         {
-    //             if (nums[i] > nums[j])
-    //                 max_dp = max(max_dp, dp[j]);
-    //         }
-    //         dp[i] = max_dp + 1;
-    //         res = max(res, dp[i]);
-    //     }
-    //     return res;
-    // }
+        vector<int> dp(nums.size(), 0);
+        dp[0] = 1;
+        int res = 1; // 紀錄從頭到尾最長的substring
+        for (int i = 1; i < nums.size(); i++)
+        {
+            int max_dp = 0;
+            for (int j = 0; j < i; j++)
+            {
+                if (nums[i] > nums[j])
+                    max_dp = max(max_dp, dp[j]);
+            }
+            dp[i] = max_dp + 1;
+            res = max(res, dp[i]);
+        }
+        return res;
+    }
 };
 // @lc code=end
