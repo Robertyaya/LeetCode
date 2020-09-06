@@ -1,5 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+/**
+ * Time: O(N), Space: O(N)
+ * Monotone stack
+ * 
+ */
+int trap(vector<int> &height)
+{
+  stack<int> sta;
+  int i = 0, res = 0;
+  while (i < height.size())
+  {
+    // 高度都是遞減的話, 則持續push到stack裡面
+    if (sta.empty() || height[i] <= height[sta.top()])
+      sta.push(i++);
+    else // 現在的value, 持續和stack裡面的計算所對應的存水量
+    {
+      int t = sta.top(); // 前一個
+      sta.pop();
+      if (sta.empty())
+        continue;
+      int w = i - 1 - sta.top(); // width
+
+      // 此處為高度差值, 前一個和前前一個, 那如果高度超過現在的高度, 那存水量的高度就會是現在的高度為主
+      // ex: 3,2,1,4
+      /**
+       * 2,1造成的存水量 高為2-1, 寬為1
+       * 3,2造成的存水量 高為3-2, 寬為2
+       */
+      int h = min(height[i], height[sta.top()]) - height[t];
+      res += w * h;
+    }
+  }
+  return res;
+}
 /**
  * Time: O(N), Space: O(1)
  * 解題流程: 為two pointer的題型, left指向start, right指向end

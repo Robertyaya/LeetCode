@@ -5,6 +5,8 @@
  */
 
 // @lc code=start
+
+// Use hash linked list
 class LRUCache
 {
 public:
@@ -21,6 +23,7 @@ public:
         if (it == m.end())
             return -1;
         // 將key所對應的list node, 搬到cache的最前面位置
+        // it->second代表是所對應的linked list node
         l.splice(l.begin(), l, it->second);
 
         // it->second is the pair<int,int>
@@ -30,19 +33,20 @@ public:
 
     void put(int key, int value)
     {
-        // 代表在map有, 先remove掉
         auto v = m.find(key);
+        // 先刪除已經在list中的, 因為value可能不一樣要update
         if (v != m.end())
         {
-            l.erase(v->second);
-        }
-        if (l.size() >= size)
-        {
-            auto temp = l.rbegin();
-            m.erase(temp->first);
-            l.pop_back();
+            l.erase(m[key]);
         }
 
+        // Need to erase the lase value
+        if (l.size() >= size)
+        {
+            int key = l.rbegin()->first;
+            m.erase(key);
+            l.pop_back();
+        }
         l.push_front({key, value});
         m[key] = l.begin();
     }
