@@ -45,15 +45,5 @@ std::vector<int> twoSum(std::vector<int> &nums, int target)
     return {};
 }
 
-int main()
-{
-    int target = 0;
-    std::vector<int> input;
-    input.push_back(-3);
-    input.push_back(4);
-    input.push_back(3);
-    input.push_back(90);
-    std::vector<int> temp = twoSum(input, target);
-    for (int i = 0; i < temp.size(); i++)
-        std::cout << temp[i] << " " << std::endl;
-}
+// put into unordered_set
+//

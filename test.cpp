@@ -1,49 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class base
+void func(int a[2][3])
 {
-public:
-  base()
+  for (int i = 0; i < 2; i++)
   {
-    cout << "base constructor" << endl;
-    type = 1;
+    for (int j = 0; j < 3; j++)
+    {
+      cout << a[i][j] << " ";
+    }
+    cout << endl;
   }
-  ~base()
-  {
-    cout << "base destructor" << endl;
-  }
-  virtual void showtype()
-  {
-    cout << type << endl;
-  }
+}
 
-  int type;
-};
-
-class derive : public base
-{
-public:
-  derive()
-  {
-    cout << "derive constructor" << endl;
-    type = 2;
-  }
-  ~derive()
-  {
-    cout << "derive destructor" << endl;
-  }
-  void showtype()
-  {
-    cout << type << endl;
-  }
-
-  int type;
-};
 int main()
 {
-  char a = 'b';
-  char b = 'd';
-  char c = 1 + 'a';
-  cout << c << endl;
+  vector<pair<int, int>> direction = {{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+  for (int i = 0; i < direction.size(); i++)
+  {
+    cout << direction[i].first << " " << direction[i].second << endl;
+  }
 }

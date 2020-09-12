@@ -25,44 +25,29 @@ public:
     {
         int m = obstacleGrid.size();
         int n = obstacleGrid[0].size();
-        int dp[m][n];
-
-        // Initialize dp, 當在initialize時遇到障礙物時, 後面一定都沒辦法到達, 因此flag變成true, 後面都填0
-        // Initial row
-        bool flag = false;
+        vector<vector<int>> dp(m, vector<int>(n, 0));
+        // initial row
         for (int i = 0; i < m; i++)
         {
-            if (obstacleGrid[i][0])
-                flag = true;
-
-            if (flag)
-                dp[i][0] = 0;
-            else
-                dp[i][0] = 1;
+            if (obstacleGrid[i][0] == 1)
+                break;
+            dp[i][0] = 1;
         }
-
         // Initial col
-        flag = false;
         for (int i = 0; i < n; i++)
         {
-            if (obstacleGrid[0][i])
-                flag = true;
-
-            if (flag)
-                dp[0][i] = 0;
-            else
-                dp[0][i] = 1;
+            if (obstacleGrid[0][i] == 1)
+                break;
+            dp[0][i] = 1;
         }
 
-        // Update dp array
+        // update dp
         for (int i = 1; i < m; i++)
         {
             for (int j = 1; j < n; j++)
             {
-                if (!obstacleGrid[i][j])
+                if (obstacleGrid[i][j] == 0)
                     dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-                else
-                    dp[i][j] = 0;
             }
         }
         return dp[m - 1][n - 1];

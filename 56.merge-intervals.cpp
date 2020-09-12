@@ -25,7 +25,10 @@ public:
             return {};
 
         // O(NlogN)
-        sort(intervals.begin(), intervals.end(), [](auto &a, auto &b) { return a[0] < b[0]; });
+        auto cmp = [](auto a, auto b) {
+            return a[0] < b[0];
+        };
+        sort(intervals.begin(), intervals.end(), cmp);
 
         vector<vector<int>> output;
         output.push_back(intervals[0]);
@@ -41,7 +44,6 @@ public:
             else // Need to merge, modify the end_index, choose the max one
                 output.back()[1] = max(output.back()[1], end_index);
         }
-
         return output;
     }
 };

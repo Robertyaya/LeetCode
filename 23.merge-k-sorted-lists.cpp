@@ -32,14 +32,12 @@ public:
         if (lists.empty())
             return nullptr;
 
-        // same as greater, 小的會先從priority queue中出來
-        auto cmp = [](ListNode *&a, ListNode *&b) {
+        // same as greater, 小的會先從priority queue中出來, min_heap
+        auto cmp = [](auto a, auto b) {
             return a->val > b->val;
         };
-
         // priority_queue< TYPE, Container, Compare function>
-        priority_queue<ListNode *, vector<ListNode *>, decltype(cmp)>
-            q(cmp);
+        priority_queue<ListNode *, vector<ListNode *>, decltype(cmp)> q(cmp);
 
         // O(logN), 先將每一列的第一個node放入queue中
         for (int i = 0; i < lists.size(); i++)

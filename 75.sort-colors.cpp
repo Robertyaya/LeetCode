@@ -18,13 +18,11 @@ public:
     {
         for (int i = 1; i < nums.size(); i++)
         {
-            int cur = i;
-            while (nums[cur] < nums[cur - 1])
+            int index = i;
+            while (index >= 1 && nums[index] < nums[index - 1])
             {
-                swap(nums[cur], nums[cur - 1]);
-                cur--;
-                if (cur == 0)
-                    break;
+                swap(nums[index], nums[index - 1]);
+                index--;
             }
         }
     }
@@ -38,23 +36,17 @@ public:
 */
 void sortColors(vector<int> &nums)
 {
-    vector<int> count;
-    count.resize(3);
-    // O(N)
+    vector<int> vec(3, 0);
     for (auto v : nums)
-        count[v]++;
+        vec[v]++;
 
     int index = 0;
-    int value = 0;
-    for (auto v : count)
+    for (int i = 0; i < 3; i++)
     {
-        int num = v;
-        while (num > 0)
+        for (int j = 0; j < vec[i]; j++)
         {
-            nums[index] = value;
-            num--;
+            nums[index] = i;
             index++;
         }
-        value++;
     }
 }

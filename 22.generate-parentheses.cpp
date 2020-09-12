@@ -1,5 +1,10 @@
-#include <bits/stdc++.h>
-using namespace std;
+/*
+ * @lc app=leetcode id=22 lang=cpp
+ *
+ * [22] Generate Parentheses
+ */
+
+// @lc code=start
 /**
  * 
  * Time: O(2^N) (每個括弧都兩種可能 "(" or ")" ), Space: O(N) (Recursive 的stack總共就是N層)
@@ -14,26 +19,26 @@ using namespace std;
  * 程式就會執行到下一行填右括弧下去recursive
  *
  */
-
-void generateParenthesisDFS(int left, int right, string output, vector<string> &res)
+class Solution
 {
-    if (left > right)
-        return;
-    if (left == 0 && right == 0)
-        res.push_back(output);
-    else
+public:
+    void generate(vector<string> &res, string str, int n_l, int n_r)
     {
-        if (left > 0)
-            generateParenthesisDFS(left - 1, right, output + '(', res);
-        if (right > 0)
-            generateParenthesisDFS(left, right - 1, output + ')', res);
+        if (n_r < n_l || n_r < 0 || n_l < 0)
+            return;
+        if (n_l == 0 && n_r == 0)
+        {
+            res.push_back(str);
+            return;
+        }
+        generate(res, str + '(', n_l - 1, n_r);
+        generate(res, str + ')', n_l, n_r - 1);
     }
-}
-
-vector<string> generateParenthesis(int n)
-{
-    string output;
-    vector<string> res;
-    generateParenthesisDFS(n, n, output, res);
-    return res;
-}
+    vector<string> generateParenthesis(int n)
+    {
+        vector<string> res;
+        generate(res, "(", n - 1, n);
+        return res;
+    }
+};
+// @lc code=end
