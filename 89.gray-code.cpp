@@ -16,7 +16,7 @@ class Solution
      * 01 10 兩條路
      * 11
      * 流程一定要先00->01->11->10不能00->01->10->11(這樣為BFS)
-     * 00利用和1取or來取得不同的路
+     * 00利用和1取XOR來取得不同的路
      * ex:
      * 00^1=01
      * 00^10=10
@@ -37,7 +37,7 @@ public:
         // traverse每一位, 利用1的左移來取得不同路線
         for (int i = 0; i < n; i++)
         {
-            int next = value ^ (1 << i);
+            int next = value ^ (1 << i); // XOR, 相同的數字變為0
             DFS(res, visited, next, n);
         }
     }

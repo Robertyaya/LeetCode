@@ -25,47 +25,45 @@ class Solution
 public:
     string minWindow(string s, string t)
     {
-        // Build the target map<char, 出現的次數>
+        // Build the target map
         unordered_map<char, int> map;
         for (int i = 0; i < t.size(); i++)
             map[t[i]]++;
 
+        int min_length = INT_MAX; // 紀錄min_length
+        int min_index = -1;       // 紀錄min_length的起始點
         int count = 0;
-        int min_length = INT_MAX;
         int left = 0;
-        string res;
         for (int i = 0; i < s.size(); i++)
         {
-            // The char in the target map
             if (map.count(s[i]))
             {
                 map[s[i]]--;
-                // >=0代表此時出現的字母都有出現在target string裡面
-                if (map[s[i]] >= 0)
+                if (map[s[i]] >= 0) // 代表此字元為滿足target char
                     count++;
             }
 
-            // 已經找到滿足target的substring, count == t.size()
-            while (count == t.size())
+            while (count == t.size()) // 目前substring都滿足target string, 做sliding window
             {
                 // Update min_length
                 if (min_length > i - left + 1)
                 {
                     min_length = i - left + 1;
-                    res = s.substr(left, min_length);
+                    min_index = left;
                 }
-                // 縮減左邊的邊界
-                if (map.count(s[left])) // 為target char
+                if (map.count(s[left]))
                 {
                     map[s[left]]++;
-                    if (map[s[left]] > 0)
+                    if (map[s[left]] > 0) // 代表此時左邊扣掉的是滿足target string的, 因此要重新開始找
                         count--;
                 }
-                // 縮短左邊邊界, 如果扣掉的不是target char, 則繼續縮小, 反之如果扣掉的是target char, 則停止縮小, 開始往右繼續找
                 left++;
             }
         }
-        return res;
+
+        if (min_index < 0)
+            return "";
+        return s.substr(min_index, min_length);
     }
 };
 // @lc code=end
