@@ -24,29 +24,29 @@ class Solution
      * 
      */
 public:
-    void DFS(TreeNode *node, int current_sum, int &sum)
+    void DFS(TreeNode *node, int &sum, int temp)
     {
-        // 過程中incremental增加, 如果把全部數字save起來最後面相加的話, 會超過int, 因為很多數字可能為0
-        // current_sum代表一條路線的node累加
-        current_sum = current_sum * 10 + node->val;
+        temp += node->val; // 加上current node value
 
         // Arrive the leaf
         if (!node->left && !node->right)
         {
-            // 將一條路線的sum加到Global的sum
-            sum += current_sum;
+            sum += temp;
+            return;
         }
         if (node->left)
-            DFS(node->left, current_sum, sum);
+            DFS(node->left, sum, 10 * temp);
         if (node->right)
-            DFS(node->right, current_sum, sum);
+            DFS(node->right, sum, 10 * temp);
     }
     int sumNumbers(TreeNode *root)
     {
         if (!root)
             return 0;
+
+        // 紀錄total sum
         int sum = 0;
-        DFS(root, 0, sum);
+        DFS(root, sum, 0);
         return sum;
     }
 };

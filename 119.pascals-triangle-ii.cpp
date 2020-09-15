@@ -47,24 +47,20 @@ public:
     {
         if (rowIndex == 0)
             return {1};
-        if (rowIndex == 1)
-            return {1, 1};
 
-        vector<int> res;
-        vector<int> pre = {1, 1};
-
-        for (int i = 2; i <= rowIndex + 1; i++)
+        vector<int> prev = {1};
+        for (int i = 1; i <= rowIndex; i++)
         {
-            res.resize(i, 1);
-            int index = 0;
-            for (int j = 1; j < i - 1 && index < pre.size(); j++)
+            vector<int> cur;
+            cur.push_back(1);
+            for (int j = 0; j < prev.size() - 1; j++)
             {
-                res[j] = pre[index] + pre[index + 1];
-                index++;
+                cur.push_back(prev[j] + prev[j + 1]);
             }
-            pre = res;
+            cur.push_back(1);
+            prev = cur;
         }
-        return res;
+        return prev;
     }
 };
 // @lc code=end

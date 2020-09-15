@@ -19,20 +19,22 @@ class Solution
 public:
     int countPrimes(int n)
     {
-        vector<bool> prime(n, true);
-        int res = 0;
+        vector<bool> primes(n, true);
+        int count = 0;
         for (int i = 2; i < n; i++)
         {
-            if (!prime[i])
+            // 代表此不是prime number, 直接continue掉, 因為其倍數一定在前面的數字已經填過false了
+            // 所以就不用再填一次了
+            if (!primes[i])
                 continue;
-            // 代表current i為prime num, 不然在前面的數字填倍數時會被填為false
-            res++;
 
-            // j代表的是i的倍數, 將i所有的倍數小於n填為false
+            // Prime num ++
+            count++;
+
             for (int j = 2; i * j < n; j++)
-                prime[i * j] = false;
+                primes[i * j] = false;
         }
-        return res;
+        return count;
     }
 };
 // @lc code=end

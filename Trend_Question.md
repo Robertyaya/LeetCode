@@ -95,6 +95,21 @@ https://medium.com/@Bear_/%E4%BB%80%E9%BA%BC%E6%98%AF-ci-cd-72bd5ae571f1
 
 
 
+Embedded背景補一點 
+
+STAR 列出example
+
+situation
+task
+action
+result
+證明自己的value
+Case要focuson technical相關的
+英文 中文都要練習
+
+
+
+
 
 
 

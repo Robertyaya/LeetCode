@@ -25,7 +25,6 @@ public:
 
     void push(int x)
     {
-        // 紀錄上一個min值, 這樣pop出來才可以update min值為第二小的
         if (x <= min)
         {
             sta.push(min);
@@ -36,14 +35,13 @@ public:
 
     void pop()
     {
-        int temp = sta.top();
-        sta.pop();
         // 代表現在的min被pop出來, 需要重新update
-        if (temp == min)
+        if (sta.top() == min)
         {
-            min = sta.top();
             sta.pop();
+            min = sta.top();
         }
+        sta.pop();
     }
 
     int top()

@@ -31,85 +31,79 @@ class Solution
      * ...
      */
 public:
-    bool DFS(string &s, unordered_set<string> &set, int start, vector<int> &memo)
+    bool DFS(string &s, int start, unordered_set<string> &set, vector<int> &memo)
     {
-        if (start >= s.length())
+        if (start > s.length() - 1)
             return true;
-        // 代表substring start~end, 已經計算過, 直接return是否滿足題目條件
+
         if (memo[start] != -1)
             return memo[start];
 
-        // Traverse所有長度
-        for (int i = start + 1; i <= s.length(); i++)
+        // Traverse current string的所有長度
+        for (int i = 1; i <= s.length() - start; i++)
         {
-            if (set.count(s.substr(start, i - start)) && DFS(s, set, i, memo))
+            if (set.count(s.substr(start, i)) && DFS(s, start + i, set, memo))
             {
                 memo[start] = 1;
                 return true;
             }
         }
-
+        // 將無法由work bank組成的放入notmatch的set中
         memo[start] = 0;
         return false;
     }
     bool wordBreak(string s, vector<string> &wordDict)
     {
+        // 紀錄可以由wordBreak組成的string
         unordered_set<string> set(wordDict.begin(), wordDict.end());
         vector<int> memo(s.size(), -1);
-        return DFS(s, set, 0, memo);
+        return DFS(s, 0, set, memo);
     }
 
     /**
- * dp version
- * Time: O(N^2), Space: O(N)
- * 解題流程: dp[i] 儲存的是從代表從頭到這個位置的substring是否有滿足題目條件
- * ex: 
- * leetcode    word[leet, code]
- * 00010001
- * 此dp的轉移方程為
- * string  = substring1 + substring2
- * 如果substring1為true and substring is true, 那string即可標記成true
- * substring1代表的就是需要traverse之前所有可能true的substring, 並利用set來判斷剩下的substring是否在字典中
- * ex: 
- * aaaaaaa   [aaaa][aaa]
- * 0011*
- * 我們在填下一個dp數值 * 時, 從之前的dp值traverse到為true的地方
- * 第一個為在index2的位置, aaaaa = aaa + aa
- * 其中aaa為之前算過為true, 因此只要判斷aa是否在word bank中
- * 第二為為index3的位置, aaaaa = aaaa + a
- * 其中aaaa為true, 因此要判斷a是否在word bank中
- * 只要其中一個滿足, 那此位置就為true
- * 
- * 此題做了一個優化, 不每次都traverse所有的dp值, 我們只存為true的dp值, 這樣每次只需要traverse true的位置就好 
- * 
- */
+     * dp version
+     * Time: O(N^2), Space: O(N)
+     * 解題流程: dp[i] 儲存的是從代表從頭到這個位置的substring是否有滿足題目條件
+     * ex:
+     * leetcode    word[leet, code]
+     * 00010001
+     * 此dp的轉移方程為
+     * string  = substring1 + substring2
+     * 如果substring1為true and substring is true, 那string即可標記成true
+     * substring1代表的就是需要traverse之前所有可能true的substring, 並利用set來判斷剩下的substring是否在字典中
+     * ex:
+     * aaaaaaa   [aaaa][aaa]
+     * 0011*
+     * 我們在填下一個dp數值 * 時, 從之前的dp值traverse到為true的地方
+     * 第一個為在index2的位置, aaaaa = aaa + aa
+     * 其中aaa為之前算過為true, 因此只要判斷aa是否在word bank中
+     * 第二為為index3的位置, aaaaa = aaaa + a
+     * 其中aaaa為true, 因此要判斷a是否在word bank中
+     * 只要其中一個滿足, 那此位置就為true
+     *
+     * 此題做了一個優化, 不每次都traverse所有的dp值, 我們只存為true的dp值, 這樣每次只需要traverse true的位置就好
+     *
+     */
     bool wordBreak(string s, vector<string> &wordDict)
     {
-        unordered_set<string> set;
-        for (auto v : wordDict)
-            set.insert(v);
+        unordered_set<string> set(wordDict.begin(), wordDict.end());
+        vector<bool> dp(s.size() + 1);
+        dp[0] = true;
 
-        // 只紀錄true的index
-        vector<int> dp_index;
-        dp_index.push_back(0);
-
-        // Traverse all string
-        for (int i = 0; i < s.length(); i++)
+        // Fill the dp
+        for (int i = 0; i < dp.size(); i++)
         {
-            // Traverse previous true substring
-            for (auto v : dp_index)
+            // Traverse i之前的substring(分兩段) 前半部確認dp, 後半部確認wordDict
+            for (int j = 0; j < i; j++)
             {
-                if (v - 1 > i)
-                    break;
-                string sub = s.substr(v, i - v + 1);
-                if (set.count(sub))
+                if (dp[j] && set.count(s.substr(j, i - j)))
                 {
-                    dp_index.push_back(i + 1);
+                    dp[i] = true;
                     break;
                 }
             }
         }
-        return (dp_index.back() == s.length());
+        return dp.back();
     }
 };
 // @lc code=end
