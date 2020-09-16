@@ -39,6 +39,8 @@ public:
             return root;
         TreeNode *left = lowestCommonAncestor(root->left, p, q);
         TreeNode *right = lowestCommonAncestor(root->right, p, q);
+
+        // 代表各從兩邊來, 因此ancestor一定就是現在root
         if (left && right)
             return root;
 

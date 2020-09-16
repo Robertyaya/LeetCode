@@ -36,15 +36,16 @@ public:
  */
     ListNode *reverseList(ListNode *head)
     {
+        // Edge case
         if (!head)
             return nullptr;
 
         if (!head->next)
             return head;
-        ListNode *newhead = reverseList(head->next);
+        ListNode *newHead = reverseList(head->next);
         head->next->next = head;
         head->next = nullptr;
-        return newhead;
+        return newHead;
     }
     /**
      * Time: O(N), Space: O(1)
@@ -54,7 +55,7 @@ public:
     {
         ListNode *prev = nullptr;
         ListNode *cur = head;
-        ListNode *next;
+        ListNode *next = nullptr;
         while (cur)
         {
             next = cur->next;

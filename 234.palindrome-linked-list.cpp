@@ -37,55 +37,65 @@ class Solution
      * 比較兩邊數字
      */
 public:
+    // 計算Linkedlist的長度, 確認odd or even
+    int CalLength(ListNode *node)
+    {
+        ListNode *temp = node;
+        int l = 0;
+        while (temp)
+        {
+            temp = temp->next;
+            l++;
+        }
+        return l;
+    }
+    // Reverse the linkedlist
+    ListNode *Reverse(ListNode *node)
+    {
+        ListNode *prev = nullptr;
+        ListNode *cur = node;
+        ListNode *next = nullptr;
+        while (cur)
+        {
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
     bool isPalindrome(ListNode *head)
     {
         if (!head || !head->next)
             return true;
 
-        ListNode *prev = head;
+        int length = CalLength(head);
         ListNode *slow = head;
         ListNode *fast = head;
-        bool even = false;
-        // O(N)
-        while (fast->next && fast->next->next)
+        while (fast && fast->next)
         {
-            prev = slow;
             slow = slow->next;
             fast = fast->next->next;
-            // 此情況代表linkedlist為偶數
-            if (fast->next != nullptr && fast->next->next == nullptr)
-                even = true;
         }
 
-        // 右半邊的linkedlist
-        ListNode *right = slow->next;
-        // 斷開為左半邊的linkedlist and 右半邊的linkedlist
-        if (even)
-            slow->next = nullptr;
+        // 分成兩邊linkedlist
+        ListNode *left = head;
+        ListNode *right;
+        if (length % 2 != 0)
+            right = slow->next;
         else
-            prev->next = nullptr; // 如果為odd, 則左半邊的linkedlist則是從中間node的前一個斷開
+            right = slow;
 
-        // Reverse the left linkedlist O(N)
-        prev = nullptr;
-        ListNode *next;
-        while (head)
-        {
-            next = head->next;
-            head->next = prev;
-            prev = head;
-            // 為了讓head指向左半邊linkedlist的頭的位置
-            if (next == nullptr)
-                break;
-            head = next;
-        }
+        // Reverse linkedlist, 因為為回文, 所以其中一邊的要先reverse才能比較
+        ListNode *rever_right = Reverse(right);
 
-        // Compare two linkedlist O(N)
-        while (head)
+        for (int i = 0; i < length / 2; i++)
         {
-            if (head->val != right->val)
+            if (left->val != rever_right->val)
                 return false;
-            head = head->next;
-            right = right->next;
+
+            left = left->next;
+            rever_right = rever_right->next;
         }
         return true;
     }

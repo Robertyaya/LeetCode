@@ -1,23 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void func(int a[2][3])
+int Partition(vector<int> &vec, int l, int r)
 {
-  for (int i = 0; i < 2; i++)
-  {
-    for (int j = 0; j < 3; j++)
-    {
-      cout << a[i][j] << " ";
-    }
-    cout << endl;
-  }
-}
+  int pivot_index = rand() % (r - l + 1) + l;
+  swap(vec[r], vec[pivot_index]);
+  int pivot = vec[r];
 
+  int j = l;
+  for (int i = l; i < r; i++)
+  {
+    if (vec[i] < pivot)
+    {
+      swap(vec[i], vec[l]);
+      l++;
+    }
+  }
+  swap(vec[l], vec[r]);
+  return l;
+}
+void QuickSort(vector<int> &vec, int l, int r)
+{
+  if (l >= r)
+    return;
+
+  int index = Partition(vec, l, r);
+  QuickSort(vec, l, index - 1);
+  QuickSort(vec, index + 1, r);
+}
 int main()
 {
-  vector<pair<int, int>> direction = {{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
-  for (int i = 0; i < direction.size(); i++)
-  {
-    cout << direction[i].first << " " << direction[i].second << endl;
-  }
+  vector<int> vec = {4, 2, 6, 4, 1, 4, 7, 9};
+  QuickSort(vec, 0, vec.size() - 1);
+  for (auto v : vec)
+    cout << v << " ";
+  cout << endl;
 }
