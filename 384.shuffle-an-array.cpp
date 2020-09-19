@@ -23,11 +23,10 @@ public:
     vector<int> shuffle()
     {
         vector<int> res(vec);
-        for (int i = 0; i < vec.size(); i++)
+        for (int i = 0; i < res.size(); i++)
         {
-            // 隨機選當下i的後面的index
-            int t = i + rand() % (res.size() - i);
-            swap(res[i], res[t]);
+            int index = rand() % (i + 1);
+            swap(res[index], res[i]);
         }
         return res;
     }

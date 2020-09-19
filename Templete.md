@@ -7,6 +7,10 @@ priority_queue<type, vector<type>, greater<type>>
 priority_queue<type, vector<type>, less<type>>
 從大的先取出來
 
+push
+top
+pop
+
 自訂type時的標準寫法
 auto comp = [](auto a, auto b)
 {

@@ -21,29 +21,30 @@ public:
  */
     vector<int> productExceptSelf(vector<int> &nums)
     {
-        vector<int> res(nums.size(), 1);
-        vector<int> forward(nums.size(), 1);
-        vector<int> backward(nums.size(), 1);
+        vector<int> output(nums.size(), 1);
+        vector<int> left(nums.size(), 1);
+        vector<int> right(nums.size(), 1);
 
-        // Fill the forward
+        // Fill the left vector
         for (int i = 0; i < nums.size() - 1; i++)
-        {
-            forward[i + 1] = forward[i] * nums[i];
-        }
-        // Fill the backward
-        int j = 1;
+            left[i + 1] = nums[i] * left[i];
+
+        // Fill the right vector
+        int j = 0;
         for (int i = nums.size() - 1; i > 0; i--)
         {
-            backward[j] = backward[j - 1] * nums[i];
+            right[j + 1] = right[j] * nums[i];
             j++;
         }
 
-        for (int i = 0; i < res.size(); i++)
+        // Calculate the output
+        j = nums.size() - 1;
+        for (int i = 0; i < nums.size(); i++)
         {
-            res[i] = forward[i] * backward[(res.size() - 1) - i];
+            output[i] = left[i] * right[j];
+            j--;
         }
-
-        return res;
+        return output;
     }
 };
 // @lc code=end

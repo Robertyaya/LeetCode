@@ -23,20 +23,24 @@ public:
         for (int i = 0; i < nums.size(); i++)
             map[nums[i]]++;
 
-        // Max heap, O(logN)
-        priority_queue<pair<int, int>> queue;
+        // Max heap, O(logN), 自己寫compare function, 利用出現的次數來排序
+        auto cmp = [](auto a, auto b) {
+            return a.second < b.second;
+        };
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> queue(cmp);
+
         for (auto v : map)
         {
-            // 依據數字出現次數做排序, 因此second放前面
-            queue.push({v.second, v.first});
+            // first為對應的數字, second為出現的次數
+            queue.push({v.first, v.second});
         }
 
-        vector<int> res;
         // O(NlogN)
+        vector<int> res;
         for (int i = 1; i <= k; i++)
         {
             auto v = queue.top();
-            res.push_back(v.second);
+            res.push_back(v.first);
             queue.pop();
         }
         return res;
