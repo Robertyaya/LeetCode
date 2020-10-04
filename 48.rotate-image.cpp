@@ -10,51 +10,46 @@ class Solution
 public:
     void rotate(vector<vector<int>> &matrix)
     {
-        int start = 0;
-        int end = matrix[0].size() - 1;
-        int offset = 0;
+        if (matrix.empty() || matrix[0].empty())
+            return;
 
-        while (offset <= matrix.size() / 2)
+        int l = 0;
+        int r = matrix.size() - 1;
+        for (int level = 0; level < matrix.size() / 2; level++)
         {
             // Top to temp
             vector<int> temp;
-            for (int i = start; i <= end; i++)
+            for (int i = l; i <= r; i++)
             {
-                temp.push_back(matrix[offset][i]);
+                temp.push_back(matrix[level][i]);
             }
 
             // Left to top
-            for (int i = start; i <= end; i++)
+            for (int i = l; i <= r; i++)
             {
-                /**
-                 * (end-i+offset)
-                 * 3~0
-                 * 2~1
-                 */
-                matrix[offset][end - i + offset] = matrix[i][offset];
+                matrix[level][r - i + level] = matrix[i][level];
             }
 
-            // Bottom to left
-            for (int i = start; i <= end; i++)
+            // Bottom to right
+            for (int i = l; i <= r; i++)
             {
-                matrix[i][offset] = matrix[end][i];
+                matrix[i][level] = matrix[r][i];
             }
 
             // Right to bottom
-            for (int i = start; i <= end; i++)
+            for (int i = l; i <= r; i++)
             {
-                matrix[end][i] = matrix[end - i + offset][end];
+                matrix[r][i] = matrix[r - i + level][r];
             }
 
-            // temp to right
-            for (int i = start; i <= end; i++)
+            // Temp to right
+            int j = 0;
+            for (int i = l; i <= r; i++)
             {
-                matrix[i][end] = temp[i - offset];
+                matrix[i][r] = temp[j++];
             }
-
-            offset++;
-            start++;
-            end--;
+            l++;
+            r--;
         }
     }
 };

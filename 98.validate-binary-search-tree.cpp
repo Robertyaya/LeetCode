@@ -29,6 +29,7 @@ public:
         if (!node)
             return true;
 
+        // 代表違反條件, 不是binary search tree
         if (node->val <= min_value || node->val >= max_value)
             return false;
 

@@ -1,38 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int Partition(vector<int> &vec, int l, int r)
+void BubbleSort(vector<int> &vec)
 {
-  int pivot_index = rand() % (r - l + 1) + l;
-  swap(vec[r], vec[pivot_index]);
-  int pivot = vec[r];
-
-  int j = l;
-  for (int i = l; i < r; i++)
+  for (int i = vec.size() - 1; i > 0; i--)
   {
-    if (vec[i] < pivot)
+    for (int j = 0; j < i; j++)
     {
-      swap(vec[i], vec[l]);
-      l++;
+      if (vec[j] > vec[j + 1])
+        swap(vec[j], vec[j + 1]);
     }
   }
-  swap(vec[l], vec[r]);
-  return l;
-}
-void QuickSort(vector<int> &vec, int l, int r)
-{
-  if (l >= r)
-    return;
-
-  int index = Partition(vec, l, r);
-  QuickSort(vec, l, index - 1);
-  QuickSort(vec, index + 1, r);
 }
 int main()
 {
-  vector<int> vec = {4, 2, 6, 4, 1, 4, 7, 9};
-  QuickSort(vec, 0, vec.size() - 1);
-  for (auto v : vec)
-    cout << v << " ";
-  cout << endl;
+  // 2D matrix initialize
+  vector<vector<int>> matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  vector<vector<int>> matrix2(5, vector<int>(5, 1));
+
+  for (int i = 0; i < matrix.size(); i++)
+  {
+    for (int j = 0; j < matrix[i].size(); j++)
+      cout << matrix[i][j] << " ";
+    cout << endl;
+  }
 }

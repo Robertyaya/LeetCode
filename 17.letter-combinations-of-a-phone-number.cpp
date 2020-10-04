@@ -31,6 +31,7 @@ public:
 
         // Convert to dic index
         int j = digits[index] - '0' - 1;
+        // Backtracking, traverse不同字母
         for (int i = 0; i < dic[j].length(); i++)
         {
             DFS(dic, index + 1, digits, res, str + dic[j][i]);

@@ -32,25 +32,30 @@ public:
             if (nums[i] > 0)
                 return res;
             int target = -nums[i];
+            // left pointer and right pointer
             int l = i + 1;
             int r = nums.size() - 1;
             while (l < r)
             {
+                // 當小於target時, update left pointer
                 if (nums[l] + nums[r] < target)
                     l++;
+                // 當大於target時, update right pointer
                 else if (nums[l] + nums[r] > target)
                     r--;
-                else
+                else // 等於target時, 將其放入res中
                 {
                     vector<int> temp = {nums[i], nums[l], nums[r]};
                     res.push_back(temp);
 
+                    // 越過相同數字
                     while (l < r && nums[l] == temp[1])
                         l++;
                     while (l < r && nums[r] == temp[2])
                         r--;
                 }
             }
+            // i也要越過相同數字
             while (i + 1 < nums.size() && nums[i] == nums[i + 1])
                 i++;
         }

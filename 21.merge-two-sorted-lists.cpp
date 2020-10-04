@@ -32,15 +32,14 @@ public:
             if (l1->val <= l2->val)
             {
                 cur->next = new ListNode(l1->val);
-                cur = cur->next;
                 l1 = l1->next;
             }
             else
             {
                 cur->next = new ListNode(l2->val);
-                cur = cur->next;
                 l2 = l2->next;
             }
+            cur = cur->next;
         }
 
         // 跳出while代表可能任一個到達尾巴或是都到達尾巴, 因此只要將next直接接著還剩下的linkedlist就可以

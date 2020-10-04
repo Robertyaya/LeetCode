@@ -28,7 +28,7 @@ public:
         if (!p && !q)
             return true;
 
-        // 過程中滿足此條件就會return
+        // 過程中滿足此條件就會return, 代表不是samre tree
         if ((p == nullptr && q != nullptr) || (p != nullptr && q == nullptr) || (p->val != q->val))
             return false;
 

@@ -20,8 +20,8 @@ public:
         int max_profit = 0;
         for (int i = 0; i < prices.size(); i++)
         {
-            min_value = min(min_value, prices[i]);
-            max_profit = max(max_profit, prices[i] - min_value);
+            min_value = min(min_value, prices[i]);               // 紀錄走到目前的最低點
+            max_profit = max(max_profit, prices[i] - min_value); // update max profit
         }
         return max_profit;
     }

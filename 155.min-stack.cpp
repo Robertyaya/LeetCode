@@ -14,7 +14,6 @@ class MinStack
      * 在push function中, 每次如果現在要push進去的value比現在的min還小, 先push 現在的min進去再push比較小的value進去
      * 這樣可以保持, 可以記錄上一個最小的min值
      * 如果是比min還要大的, 就不管直接push進去就好, 也直接pop出來就好, 不會影響到stack的min值
-     * 
      */
 public:
     /** initialize your data structure here. */

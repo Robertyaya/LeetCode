@@ -46,6 +46,7 @@ public:
         {
             for (int j = 1; j < n; j++)
             {
+                // 上面加左邊的路徑個數=現在這個點的路徑個數
                 if (obstacleGrid[i][j] == 0)
                     dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
             }

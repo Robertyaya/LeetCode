@@ -36,6 +36,7 @@ public:
         {
             for (int j = 1; j < n; j++)
             {
+                // 當下的value + min(到達左邊那點的value, 到達上面那點的value)
                 dp[i][j] = grid[i][j] + min(dp[i - 1][j], dp[i][j - 1]);
             }
         }

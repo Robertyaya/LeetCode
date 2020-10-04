@@ -31,6 +31,7 @@ public:
             res.push_back(str);
             return;
         }
+        // 每次兩條路可以走, 左邊括號或右邊括號
         generate(res, str + '(', n_l - 1, n_r);
         generate(res, str + ')', n_l, n_r - 1);
     }

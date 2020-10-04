@@ -14,7 +14,7 @@ public:
     vector<vector<int>> generateMatrix(int n)
     {
         vector<vector<int>> matrix(n, vector<int>(n, 0));
-        // 先定義好右->下->左->右的方向， 當遇到牆壁或是已填過的數字代表需要換方向
+        // 先定義好右->下->左->上的方向， 當遇到牆壁或是已填過的數字代表需要換方向
         vector<pair<int, int>> direction = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         int k = 0;
         int i = 1;

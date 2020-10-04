@@ -88,5 +88,38 @@ public:
         }
         return output;
     }
+    /**
+ * Time: O(N), Space: O(N)
+ */
+    Node *copyRandomList(Node *head)
+    {
+        Node *head_runner = head;
+        Node *answer = new Node(-1);
+        Node *answer_runner = answer;
+
+        // key為original node, value為copy node
+        unordered_map<Node *, Node *> map;
+        while (head_runner)
+        {
+            // 將original node和copy node之間利用map對起來
+            answer_runner->next = new Node(head_runner->val);
+            answer_runner = answer_runner->next;
+            map[head_runner] = answer_runner;
+            head_runner = head_runner->next;
+        }
+
+        answer_runner = answer->next;
+        while (head)
+        {
+            // 根據map可以快速找到random pointer指向的那個copy node
+            if (!head->random)
+                answer_runner->random = nullptr;
+            else
+                answer_runner->random = map[head->random];
+            answer_runner = answer_runner->next;
+            head = head->next;
+        }
+        return answer->next;
+    }
 };
 // @lc code=end

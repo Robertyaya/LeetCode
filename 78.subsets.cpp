@@ -18,6 +18,7 @@ public:
     void DFS(vector<int> &nums, vector<int> &vec, vector<vector<int>> &res, int level)
     {
         res.push_back(vec);
+        // Back tracking
         for (int i = level; i < nums.size(); i++)
         {
             vec.push_back(nums[i]);

@@ -35,8 +35,8 @@ public:
     int next()
     {
         TreeNode *todo = sta.top();
-        int value = todo->val;
         sta.pop();
+        int value = todo->val;
         if (todo->right)
         {
             todo = todo->right;

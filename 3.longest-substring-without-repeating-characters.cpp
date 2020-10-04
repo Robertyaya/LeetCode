@@ -10,6 +10,7 @@ class Solution
 public:
     int lengthOfLongestSubstring(string s)
     {
+        // key: the char, value: the index
         unordered_map<char, int> map;
         int start_index = 0;
         int cur_length = 0;

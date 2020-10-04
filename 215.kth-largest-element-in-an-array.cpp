@@ -22,7 +22,7 @@ public:
         int j = l;
         for (int i = l; i < r; i++)
         {
-            // 因為要找第k大, 所以排列為從大到小, 大的丟pivot左邊
+            // 因為要找第k大, 所以排列為從大到小, 大的丟pivot左邊 !!!!!
             if (nums[i] > pivot)
             {
                 swap(nums[j], nums[i]);
